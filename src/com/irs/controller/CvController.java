@@ -46,7 +46,7 @@ public class CvController {
 
 	public ResultUtil getCvList(Integer page, Integer limit, CvSearch search,@PathVariable("uid")String uid){
 
-        search.setZwid(uid);
+        search.setUserid(uid);
 		return cvServiceImpl.selCvs(page,limit,search);
 	}
 
