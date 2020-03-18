@@ -91,7 +91,6 @@ public class PostController {
 	@ResponseBody
 	public ResultUtil insPost(TbPosts post){
 		//防止浏览器提交
-		String u1 = "";
 		try {
 			postServiceImpl.insPostService(post);
 			return ResultUtil.ok();

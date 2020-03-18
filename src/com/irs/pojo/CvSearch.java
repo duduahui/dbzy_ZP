@@ -1,18 +1,12 @@
 package com.irs.pojo;
 
 public class CvSearch {
-	private String zwid;
+	private String userid;
 	private String nickname;
 	private String createTimeStart;
 	private String createTimeEnd;
 
-	public String getZwid() {
-		return zwid;
-	}
 
-	public void setZwid(String zwid) {
-		this.zwid = zwid;
-	}
 
 	public String getNickname() {
 		return nickname;
@@ -36,5 +30,13 @@ public class CvSearch {
 
 	public void setCreateTimeEnd(String createTimeEnd) {
 		this.createTimeEnd = createTimeEnd;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 }

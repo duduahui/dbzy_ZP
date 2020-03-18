@@ -10,7 +10,7 @@ import java.util.Date;
 public class TbCvs implements Serializable {
     private Long uid;
 
-    private String zwid;
+    private String userid;
 
     private String nickname;
 
@@ -30,13 +30,6 @@ public class TbCvs implements Serializable {
         this.uid = uid;
     }
 
-    public String getZwid() {
-        return zwid;
-    }
-
-    public void setZwid(String zwid) {
-        this.zwid = zwid;
-    }
 
     public String getNickname() {
         return nickname;
@@ -83,7 +76,7 @@ public class TbCvs implements Serializable {
         }
         TbCvs other = (TbCvs) that;
         return (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
-            && (this.getZwid() == null ? other.getZwid() == null : this.getZwid().equals(other.getZwid()))
+            && (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()))
             && (this.getNickname() == null ? other.getNickname() == null : this.getNickname().equals(other.getNickname()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
             && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
@@ -95,7 +88,7 @@ public class TbCvs implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getUid() == null) ? 0 : getUid().hashCode());
-        result = prime * result + ((getZwid() == null) ? 0 : getZwid().hashCode());
+        result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
         result = prime * result + ((getNickname() == null) ? 0 : getNickname().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
@@ -110,7 +103,7 @@ public class TbCvs implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", uid=").append(uid);
-        sb.append(", zwid=").append(zwid);
+        sb.append(", zwid=").append(userid);
         sb.append(", nickname=").append(nickname);
         sb.append(", phone=").append(phone);
         sb.append(", email=").append(email);
@@ -118,5 +111,13 @@ public class TbCvs implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 }

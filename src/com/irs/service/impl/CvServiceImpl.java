@@ -62,16 +62,7 @@ public class CvServiceImpl implements CvService {
 		List<TbCvs> Cvs = new ArrayList<TbCvs>();
 		TbCvsExample example=new TbCvsExample();
 		Criteria criteria = example.createCriteria();
-//		if(search.getZwid()!=null&&!"".equals(search.getZwid())){
-//			criteria.andUidNotEqualTo(uid);
-//		}
-		if(search.getZwid()!=null&&!"0".equals(search.getZwid())){
-			Cvs = tbPostsCvsMapper.getTbCvs(search.getZwid());
-		}
-		else{
-			Cvs = tbCvsMapper.selectByExample(example);
-		}
-
+		Cvs = tbCvsMapper.selectByExample(example);
 		PageInfo<TbCvs> pageInfo = new PageInfo<TbCvs>(Cvs);
 		resultUtil.setCode(0);
 		resultUtil.setCount(pageInfo.getTotal());
@@ -92,6 +83,13 @@ public class CvServiceImpl implements CvService {
 				tbPostsCvsMapper.insert(tbPostsCvs);
 			}
 		}
+	}
+	@Override
+	public void insCvService(TbCvs Cvs) throws Exception {
+
+		Date date=new Date();
+		Cvs.setCreatetime(date);
+		tbCvsMapper.insert(Cvs);
 	}
 //
 //	@Override

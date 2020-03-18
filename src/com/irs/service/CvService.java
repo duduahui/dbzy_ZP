@@ -11,8 +11,8 @@ public interface CvService {
 //	//职位昵称唯一性检验
 //	public TbCvs selCvByNickname(String nickname, Long uid);
 
-	//增加职位
-//	public void insCvService(TbCvs Cv) throws Exception;
+	//增加简历
+	public void insCvService(TbCvs Cv) throws Exception;
 
 	//得到简历信息
 	public ResultUtil selCvs(Integer page, Integer limit, CvSearch search);
