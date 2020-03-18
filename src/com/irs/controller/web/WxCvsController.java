@@ -56,7 +56,7 @@ public  class WxCvsController {
 	 * @return
 	 */
 	@SysLog(value="添加简历")
-	@RequestMapping("insCvs")
+	@RequestMapping("/insCvs")
 	@ResponseBody
 	public ResultUtil insCvs(TbCvs cvs){
 		//防止浏览器提交

@@ -16,10 +16,10 @@ public class WxLoginController {
 
     //wxe776ca37a3484089
     //9c65af58187fcdb9f9a362bdf8be7f1e
-    private String appID = "wx001b75446ce37fa8";
-    private String appSecret = "f856a396fe99cda4134c888ea534645a";
-//    private String appID = "wxe776ca37a3484089";
-//    private String appSecret = "9c65af58187fcdb9f9a362bdf8be7f1e";
+    //private String appID = "wx001b75446ce37fa8";
+    //private String appSecret = "f856a396fe99cda4134c888ea534645a";
+    private String appID = "wxe776ca37a3484089";
+    private String appSecret = "9c65af58187fcdb9f9a362bdf8be7f1e";
 
     @RequestMapping("/login")
     @ResponseBody
