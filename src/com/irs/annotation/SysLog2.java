@@ -7,5 +7,5 @@ import java.lang.annotation.*;
 @Documented
 public @interface SysLog2 {
 
-	String value() default "5345";
+	String value() default "53457";
 }
