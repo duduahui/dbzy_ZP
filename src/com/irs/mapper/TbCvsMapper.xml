@@ -3,7 +3,7 @@
 <mapper namespace="com.irs.mapper.TbCvsMapper">
   <resultMap id="BaseResultMap" type="com.irs.pojo.TbCvs">
     <id column="uid" jdbcType="BIGINT" property="uid" />
-    <result column="zwid" jdbcType="VARCHAR" property="zwid" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    `uid`, zwid, nickname, phone, email, createtime
+    `uid`, userid, nickname, phone, email, createtime
   </sql>
   <select id="selectByExample" parameterType="com.irs.pojo.TbCvsExample" resultMap="BaseResultMap">
     select
@@ -109,16 +109,16 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.TbCvs" useGeneratedKeys="true">
-    insert into tb_cvs (zwid, nickname, phone, 
+    insert into tb_cvs (userid, nickname, phone, 
       email, createtime)
-    values (#{zwid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+    values (#{userid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.TbCvs" useGeneratedKeys="true">
     insert into tb_cvs
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="zwid != null">
-        zwid,
+      <if test="userid != null">
+        userid,
       </if>
       <if test="nickname != null">
         nickname,
@@ -134,8 +134,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="zwid != null">
-        #{zwid,jdbcType=VARCHAR},
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
         #{nickname,jdbcType=VARCHAR},
@@ -163,8 +163,8 @@
       <if test="record.uid != null">
         `uid` = #{record.uid,jdbcType=BIGINT},
       </if>
-      <if test="record.zwid != null">
-        zwid = #{record.zwid,jdbcType=VARCHAR},
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=VARCHAR},
       </if>
       <if test="record.nickname != null">
         nickname = #{record.nickname,jdbcType=VARCHAR},
@@ -186,7 +186,7 @@
   <update id="updateByExample" parameterType="map">
     update tb_cvs
     set `uid` = #{record.uid,jdbcType=BIGINT},
-      zwid = #{record.zwid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
@@ -198,8 +198,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.TbCvs">
     update tb_cvs
     <set>
-      <if test="zwid != null">
-        zwid = #{zwid,jdbcType=VARCHAR},
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
@@ -218,7 +218,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.irs.pojo.TbCvs">
     update tb_cvs
-    set zwid = #{zwid,jdbcType=VARCHAR},
+    set userid = #{userid,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
