@@ -32,9 +32,9 @@ public  class WxCvsController {
 	 * @return
 	 */
 	@SysLog(value="查看简历")
-	@RequestMapping("/getCvsList/{userid}")
+	@RequestMapping("/getCvsList")
 	@ResponseBody
-	public Object getCvsList(@PathVariable("userid")String userid, CvSearch search){
+	public Object getCvsList( String userid, CvSearch search){
 
 		search.setUserid(userid);
 		ResultUtil resultUtil = cvServiceImpl.selCvs(1,10,search);
@@ -68,22 +68,43 @@ public  class WxCvsController {
 			return new ResultUtil(502,"简历添加错误，请检查！");
 		}
 	}
-//	@RequestMapping("/addCvs")
-//	@ResponseBody
-//	public Object addCvs(@PathVariable("userid")String userid, CvSearch search){
-//
-//		search.setUserid(userid);
-//		ResultUtil resultUtil = cvService.selCvs(1,10,search);
-//		List<TbCvs> cvsList = (List<TbCvs>)resultUtil.getData();
-//		List<Map<String, Object>> data = new ArrayList<>(cvsList.size());
-//		for (TbCvs tbCvs : cvsList) {
-//			Map<String, Object> resultAll = new HashMap<>();
-//			resultAll.put("userid", tbCvs.getUserid());
-//			resultAll.put("nickname",tbCvs.getNickname());
-//			resultAll.put("phone", tbCvs.getPhone());
-//			resultAll.put("email", tbCvs.getEmail());
-//			data.add(resultAll);
-//		}
-//		return ResponseUtil.ok(data);
-//	}
+	/**
+	 * 修改简历Cv
+	 * @param
+	 * @return
+	 */
+	@SysLog(value="修改简历")
+	@RequestMapping("/editCvs")
+	@ResponseBody
+	public ResultUtil editCvs(TbCvs cvs){
+		//防止浏览器提交
+		try {
+			cvServiceImpl.editCvService(cvs);
+			return ResultUtil.ok();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return new ResultUtil(502,"简历添加错误，请检查！");
+		}
+	}
+	/**
+	 * 删除简历Cv
+	 * @param
+	 * @return
+	 */
+	@SysLog(value="删除简历")
+	@RequestMapping("/delCvs/{uid}")
+	@ResponseBody
+	public ResultUtil delCvs(@PathVariable("uid")Long uid){
+		try {
+			TbCvs cvs = new TbCvs();
+			cvs.setEmail("0");
+			cvs.setUid(uid);
+			cvServiceImpl.insCvService(cvs);
+			return ResultUtil.ok();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return new ResultUtil(502,"简历删除成功，请检查！");
+		}
+	}
+
 }

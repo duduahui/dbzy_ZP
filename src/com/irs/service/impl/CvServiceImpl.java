@@ -1,6 +1,5 @@
 package com.irs.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.irs.mapper.TbCvsMapper;
 import com.irs.mapper.TbPostsCvsMapper;
@@ -61,7 +60,14 @@ public class CvServiceImpl implements CvService {
 		ResultUtil resultUtil = new ResultUtil();
 		List<TbCvs> Cvs = new ArrayList<TbCvs>();
 		TbCvsExample example=new TbCvsExample();
+
 		Criteria criteria = example.createCriteria();
+
+		example.setOrderByClause("createtime DESC");
+		if(search.getUserid()!=null&&!"".equals(search.getUserid())){
+			//注意：模糊查询需要进行拼接”%“  如下，不进行拼接是不能完成查询的哦。
+			criteria.anduseridEqualTo(search.getUserid());
+		}
 		Cvs = tbCvsMapper.selectByExample(example);
 		PageInfo<TbCvs> pageInfo = new PageInfo<TbCvs>(Cvs);
 		resultUtil.setCode(0);
@@ -91,12 +97,23 @@ public class CvServiceImpl implements CvService {
 		Cvs.setCreatetime(date);
 		tbCvsMapper.insert(Cvs);
 	}
+
+	//修改简历
+//	public void editCvService(TbCvs Cv) throws Exception;
 //
-//	@Override
-//	public void delCvByUid(String uid) {
-//		tbCvsMapper.deleteByPrimaryKey(Long.parseLong(uid));
-//	}
+//	//删除简历
+//	public void delCvService(TbCvs Cv) throws Exception;
 //
+	@Override
+	public void delCvService(TbCvs Cv) {
+		tbCvsMapper.updateByPrimaryKeySelective(Cv);
+	}
+
+	@Override
+	public void editCvService(TbCvs Cv) {
+		tbCvsMapper.updateByPrimaryKey(Cv);
+	}
+
 	@Override
 	public TbCvs selCvByUid(Long uid) {
 		return tbCvsMapper.selectByPrimaryKey(uid);
