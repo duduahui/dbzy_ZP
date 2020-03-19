@@ -185,73 +185,73 @@ public class TbCvsExample {
             return (Criteria) this;
         }
 
-        public Criteria andZwidIsNull() {
-            addCriterion("zwid is null");
+        public Criteria anduseridIsNull() {
+            addCriterion("userid is null");
             return (Criteria) this;
         }
 
-        public Criteria andZwidIsNotNull() {
-            addCriterion("zwid is not null");
+        public Criteria anduseridIsNotNull() {
+            addCriterion("userid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andZwidEqualTo(String value) {
-            addCriterion("zwid =", value, "zwid");
+        public Criteria anduseridEqualTo(String value) {
+            addCriterion("userid =", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidNotEqualTo(String value) {
-            addCriterion("zwid <>", value, "zwid");
+        public Criteria anduseridNotEqualTo(String value) {
+            addCriterion("userid <>", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidGreaterThan(String value) {
-            addCriterion("zwid >", value, "zwid");
+        public Criteria anduseridGreaterThan(String value) {
+            addCriterion("userid >", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidGreaterThanOrEqualTo(String value) {
-            addCriterion("zwid >=", value, "zwid");
+        public Criteria anduseridGreaterThanOrEqualTo(String value) {
+            addCriterion("userid >=", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidLessThan(String value) {
-            addCriterion("zwid <", value, "zwid");
+        public Criteria anduseridLessThan(String value) {
+            addCriterion("userid <", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidLessThanOrEqualTo(String value) {
-            addCriterion("zwid <=", value, "zwid");
+        public Criteria anduseridLessThanOrEqualTo(String value) {
+            addCriterion("userid <=", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidLike(String value) {
-            addCriterion("zwid like", value, "zwid");
+        public Criteria anduseridLike(String value) {
+            addCriterion("userid like", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidNotLike(String value) {
-            addCriterion("zwid not like", value, "zwid");
+        public Criteria anduseridNotLike(String value) {
+            addCriterion("userid not like", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidIn(List<String> values) {
-            addCriterion("zwid in", values, "zwid");
+        public Criteria anduseridIn(List<String> values) {
+            addCriterion("userid in", values, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidNotIn(List<String> values) {
-            addCriterion("zwid not in", values, "zwid");
+        public Criteria anduseridNotIn(List<String> values) {
+            addCriterion("userid not in", values, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidBetween(String value1, String value2) {
-            addCriterion("zwid between", value1, value2, "zwid");
+        public Criteria anduseridBetween(String value1, String value2) {
+            addCriterion("userid between", value1, value2, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andZwidNotBetween(String value1, String value2) {
-            addCriterion("zwid not between", value1, value2, "zwid");
+        public Criteria anduseridNotBetween(String value1, String value2) {
+            addCriterion("userid not between", value1, value2, "userid");
             return (Criteria) this;
         }
 
