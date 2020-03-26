@@ -46,8 +46,13 @@ public class CvController {
 
 	public ResultUtil getCvList(Integer page, Integer limit, CvSearch search,@PathVariable("uid")String uid){
 
-        search.setUserid(uid);
-		return cvServiceImpl.selCvs(page,limit,search);
+		if(uid==null&&"".equals(uid)){
+			//不是由职位跳转过来
+			return cvServiceImpl.selCvs(page,limit,search);
+		}else{
+			search.setUserid(uid);
+			return cvServiceImpl.selPostCvs(page,limit,search);
+		}
 	}
 
 	@RequestMapping("cvList/{uid}")

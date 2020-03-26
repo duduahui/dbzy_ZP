@@ -25,9 +25,12 @@ public interface CvService {
 	//得到简历信息
 	public ResultUtil selCvs(Integer page, Integer limit, CvSearch search);
 
-//	//查询简历
+	//查询简历
 	public TbCvs selCvByUid(Long uid);
 
+
+    //根据职位查询简历
+	public ResultUtil selPostCvs(Integer page, Integer limit,CvSearch search);
 
  	//转发简历至职位
  	public void insCv2PostService(String postStr);

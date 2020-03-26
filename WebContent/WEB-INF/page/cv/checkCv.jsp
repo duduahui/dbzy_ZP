@@ -52,11 +52,11 @@
 				</div>
 			</div>
 		<div class="layui-form-item">
-<%--			<label class="layui-form-label">昵称</label>--%>
-<%--			<div class="layui-input-block">--%>
-<%--				<input type="text" id="nickname" class="layui-input userName"--%>
-<%--					lay-verify="required" name="nickname" value="${user.nickname }">--%>
-<%--			</div>--%>
+			<label class="layui-form-label">昵称</label>
+			<div class="layui-input-block">
+				<input type="text" id="nickname" class="layui-input userName"
+					lay-verify="required" name="nickname" value="${user.nickname }">
+			</div>
 <%--		</div>--%>
 <%--		<div class="layui-form-item">--%>
 <%--			<label class="layui-form-label">性别</label>--%>
@@ -120,11 +120,11 @@
 <%--				</select>--%>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit="" lay-filter="subCv">提交</button>
-			</div>
-		</div>
+<%--		<div class="layui-form-item">--%>
+<%--			<div class="layui-input-block">--%>
+<%--				<button class="layui-btn" lay-submit="" lay-filter="subCv">提交</button>--%>
+<%--			</div>--%>
+<%--		</div>--%>
 	</form>
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
 	<script type="text/javascript" src="${ctx }/page/cv/checkCv.js"></script>

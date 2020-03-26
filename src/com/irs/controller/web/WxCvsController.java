@@ -3,11 +3,9 @@ package com.irs.controller.web;
 import com.irs.annotation.SysLog;
 import com.irs.pojo.CvSearch;
 import com.irs.pojo.TbCvs;
-import com.irs.pojo.TbPosts;
 import com.irs.service.CvService;
 import com.irs.util.ResponseUtil;
 import com.irs.util.ResultUtil;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -66,6 +64,22 @@ public  class WxCvsController {
 		} catch (Exception e) {
 			//e.printStackTrace();
 			return new ResultUtil(502,"简历添加错误，请检查！");
+		}
+	}
+	/**
+	 * 申请职位，关联简历
+	 * dudu
+	 * 2020年3月12日09:40:44
+	 **/
+	@RequestMapping("turnCv/")
+	@ResponseBody
+	public ResultUtil turnCv(String postStr){//postStr = "cvcode,postcode";
+		try {
+			cvServiceImpl.insCv2PostService(postStr);
+			return ResultUtil.ok();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultUtil.error();
 		}
 	}
 	/**

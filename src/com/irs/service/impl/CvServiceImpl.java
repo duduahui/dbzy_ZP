@@ -75,7 +75,17 @@ public class CvServiceImpl implements CvService {
 		resultUtil.setData(pageInfo.getList());
 		return resultUtil;
 	}
-
+	@Override
+	public ResultUtil selPostCvs(Integer page, Integer limit,CvSearch search) {
+		ResultUtil resultUtil = new ResultUtil();
+		List<TbCvs> Cvs = new ArrayList<TbCvs>();
+		Cvs = tbPostsCvsMapper.getTbCvs(search.getUserid());
+		PageInfo<TbCvs> pageInfo = new PageInfo<TbCvs>(Cvs);
+		resultUtil.setCode(0);
+		resultUtil.setCount(pageInfo.getTotal());
+		resultUtil.setData(pageInfo.getList());
+		return resultUtil;
+	}
 	@Override
 	public void insCv2PostService(String postStr) {
 		String[] posts = postStr.split(",");
