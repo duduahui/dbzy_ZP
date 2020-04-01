@@ -70,6 +70,7 @@ public class CvController {
      * 2020年3月5日09:40:44
      **/
 	@RequestMapping("checkCv/{uid}")
+    @ResponseBody
 	public String checkCv(@PathVariable("uid")String uid, Model model){
 		TbCvs cv=cvServiceImpl.selCvByUid(Long.parseLong(uid));
 		model.addAttribute("cv", cv);

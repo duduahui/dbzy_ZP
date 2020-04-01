@@ -39,23 +39,22 @@
 		<div class="layui-form-item">
 			<div>
 				<label class="layui-form-label">职位编码</label>
-				<div class="layui-input-block">
+				<div class="layui-input-block" style="width: 20%">
 					<input class="layui-input layui-disabled"
 						   disabled value="${cv.uid }">
 				</div>
 			</div>
+        </div>
+        <div class="layui-form-item">
 			<div>
-				<label class="layui-form-label">招聘部门</label>
-				<div class="layui-input-block">
-					<input class="layui-input layui-disabled" id="zwid" name="zwid"
-						   disabled value="${cv.zwid }">
-				</div>
+				<label class="layui-form-label" style="width: 20%" >联系电话：${cv.phone }</label>
 			</div>
+        </div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">昵称</label>
 			<div class="layui-input-block">
-				<input type="text" id="nickname" class="layui-input userName"
-					lay-verify="required" name="nickname" value="${user.nickname }">
+				<input type="text" id="nickname" class="layui-input layui-disabled" style="width: 20%"
+					  name="nickname" value="${cv.nickname }">
 			</div>
 <%--		</div>--%>
 <%--		<div class="layui-form-item">--%>

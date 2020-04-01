@@ -33,7 +33,6 @@ public  class WxCvsController {
 	@RequestMapping("/getCvsList")
 	@ResponseBody
 	public Object getCvsList( String userid, CvSearch search){
-
 		search.setUserid(userid);
 		ResultUtil resultUtil = cvServiceImpl.selCvs(1,10,search);
 		List<TbCvs> cvsList = (List<TbCvs>)resultUtil.getData();
@@ -41,12 +40,30 @@ public  class WxCvsController {
 		for (TbCvs tbCvs : cvsList) {
 			Map<String, Object> resultAll = new HashMap<>();
 			resultAll.put("userid", tbCvs.getUserid());
-            resultAll.put("nickname",tbCvs.getNickname());
+			resultAll.put("nickname",tbCvs.getNickname());
 			resultAll.put("phone", tbCvs.getPhone());
 			resultAll.put("email", tbCvs.getEmail());
 			data.add(resultAll);
 		}
 		return ResponseUtil.ok(data);
+
+	}
+	/**
+	 * 查看简历Cv
+	 * @param
+	 * @return
+	 */
+	@SysLog(value="查看单个简历")
+	@RequestMapping("/getCvs")
+	@ResponseBody
+	public Object getCvsL( Long uid ){
+		TbCvs tbCvs =cvServiceImpl.selCvByUid(uid);
+		Map<String, Object> resultAll = new HashMap<>();
+		resultAll.put("userid", tbCvs.getUserid());
+		resultAll.put("nickname",tbCvs.getNickname());
+		resultAll.put("phone", tbCvs.getPhone());
+		resultAll.put("email", tbCvs.getEmail());
+		return ResponseUtil.ok(resultAll);
 	}
 	/**
 	 * 添加简历Cv
