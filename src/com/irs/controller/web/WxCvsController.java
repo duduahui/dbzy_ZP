@@ -84,6 +84,60 @@ public  class WxCvsController {
 		}
 	}
 	/**
+	 * 添加简历Cv
+	 * @param
+	 * @return
+	 */
+	@SysLog(value="添加简历--教育经历")
+	@RequestMapping("/insCvsJy")
+	@ResponseBody
+	public ResultUtil insCvsJy(TbCvs cvs){
+		//防止浏览器提交
+		try {
+			cvServiceImpl.insCvService(cvs);
+			return ResultUtil.ok();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return new ResultUtil(502,"简历添加错误，请检查！");
+		}
+	}
+	/**
+	 * 添加简历Cv
+	 * @param
+	 * @return
+	 */
+	@SysLog(value="添加简历--工作经历")
+	@RequestMapping("/insCvsGz")
+	@ResponseBody
+	public ResultUtil insCvsGz(TbCvs cvs){
+		//防止浏览器提交
+		try {
+			cvServiceImpl.insCvService(cvs);
+			return ResultUtil.ok();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return new ResultUtil(502,"简历添加错误，请检查！");
+		}
+	}
+	/**
+	 * 添加简历Cv
+	 * @param
+	 * @return
+	 */
+	@SysLog(value="添加简历--培训经历")
+	@RequestMapping("/insCvsPx")
+	@ResponseBody
+	public ResultUtil insCvsPx(TbCvs cvs){
+		//防止浏览器提交
+		try {
+			cvServiceImpl.insCvService(cvs);
+			return ResultUtil.ok();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return new ResultUtil(502,"简历添加错误，请检查！");
+		}
+	}
+	/**
 	 * 申请职位，关联简历
 	 * dudu
 	 * 2020年3月12日09:40:44

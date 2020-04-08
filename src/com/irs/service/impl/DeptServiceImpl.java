@@ -14,13 +14,12 @@ public class DeptServiceImpl implements DeptService {
 	@Autowired
 	private DeptMapper deptMapper;
 
-//	@Override
-//	public void insLog(TbDepts dept) {
-//		deptMapper.insert(dept);
-//	}
-
 	@Override
 	public List<TbDepts> selDeptList() {
 		return deptMapper.getDeptLists();
+	}
+	@Override
+	public String getDeptName(String zdept) {
+		return deptMapper.getDeptName(zdept);
 	}
 }

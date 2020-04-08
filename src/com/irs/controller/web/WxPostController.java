@@ -1,13 +1,10 @@
 package com.irs.controller.web;
 
-import com.irs.annotation.SysLog;
 import com.irs.pojo.PostSearch;
 import com.irs.pojo.TbPosts;
-import com.irs.pojo.TbPostsExample;
 import com.irs.service.PostService;
 import com.irs.util.ResponseUtil;
 import com.irs.util.ResultUtil;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +34,8 @@ public  class WxPostController {
 			Map<String, Object> resultAll = new HashMap<>();
 			resultAll.put("uid", tbPosts.getUid());
             resultAll.put("resultImage", "../../images/dyzp/zp.png");
-			resultAll.put("resultTitle", tbPosts.getZpbm());//招聘部门
-			resultAll.put("resultContent", "岗位："+tbPosts.getZpgw()+"——任职要求："+tbPosts.getRztj());//招聘岗位
+//			resultAll.put("resultTitle", tbPosts.getZpbm());//招聘部门
+//			resultAll.put("resultContent", "岗位："+tbPosts.getZpgw()+"——任职要求："+tbPosts.getRztj());//招聘岗位
 			resultAll.put("resultLocation", tbPosts.getCreateTime());//发布时间
 			data.add(resultAll);
 		}

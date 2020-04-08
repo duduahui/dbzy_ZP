@@ -1,4 +1,4 @@
-post<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%@ include file="/WEB-INF/page/include/taglib.jsp"%>
@@ -6,7 +6,7 @@ post<%@ page language="java" contentType="text/html; charset=UTF-8"
 <html>
 <head>
 <meta charset="utf-8">
-<title>招聘列表</title>
+<title>职位列表</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -75,7 +75,10 @@ post<%@ page language="java" contentType="text/html; charset=UTF-8"
 	</div>
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
 	<script type="text/html" id="barEdit">
-  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="check">查看简历</a>
+		<a class="layui-btn layui-btn layui-btn-xs" lay-event="edit">修改</a>
+		<a class="layui-btn layui-btn layui-btn-xs" lay-event="submit">发布</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="under">下架</a>
+  		<a class="layui-btn layui-btn layui-btn-xs" lay-event="check">查看简历</a>
 <%--  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
 <%--		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
 	</script>

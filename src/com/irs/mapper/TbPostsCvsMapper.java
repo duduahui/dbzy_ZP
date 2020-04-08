@@ -30,4 +30,7 @@ public interface TbPostsCvsMapper {
     int updateByPrimaryKeySelective(TbPostsCvs record);
 
     int updateByPrimaryKey(TbPostsCvs record);
+
+    @Select("select count(*) from tb_cvs t left join tb_posts_cvs a on t.uid = a.cvcode  where a.postcode =#{0} ")
+    String countCvs(Long postid);
 }

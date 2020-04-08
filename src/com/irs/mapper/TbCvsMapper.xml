@@ -109,8 +109,8 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.TbCvs" useGeneratedKeys="true">
-    insert into tb_cvs (userid, nickname, phone, 
-      email, createtime)
+    insert into tb_cvs (userid, nickname, minzu,
+      hyzk, birthday)
     values (#{userid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
@@ -188,9 +188,9 @@
     set `uid` = #{record.uid,jdbcType=BIGINT},
       userid = #{record.userid,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      createtime = #{record.createtime,jdbcType=TIMESTAMP}
+      minzu = #{record.phone,jdbcType=VARCHAR},
+      hyzk = #{record.email,jdbcType=VARCHAR},
+      birthday = #{record.createtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -220,9 +220,9 @@
     update tb_cvs
     set userid = #{userid,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
+      minzu = #{phone,jdbcType=VARCHAR},
+      hyzk = #{email,jdbcType=VARCHAR},
+      birthday = #{createtime,jdbcType=TIMESTAMP}
     where `uid` = #{uid,jdbcType=BIGINT}
   </update>
 </mapper>

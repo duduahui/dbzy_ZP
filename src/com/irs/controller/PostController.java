@@ -2,9 +2,8 @@ package com.irs.controller;
 
 import com.irs.annotation.SysLog;
 import com.irs.pojo.PostSearch;
-import com.irs.pojo.TbCvs;
-import com.irs.pojo.TbDepts;
 import com.irs.pojo.TbPosts;
+import com.irs.pojo.TbUsers;
 import com.irs.service.DeptService;
 import com.irs.service.PostService;
 import com.irs.util.ResultUtil;
@@ -15,8 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("post/")
@@ -153,50 +150,68 @@ public class PostController {
 //			return ResultUtil.error();
 //		}
 //	}
-//	
-//	/**
-//	 * 根据ID删除用户
-//	 * @param uid
-//	 * @return
-//	 */
-//	@SysLog(value="根据ID删除用户")
-//	@RequestMapping("delUserByUid/{uid}")
-//	@RequiresPermissions("user:user:delete")
-//	@ResponseBody
-//	public ResultUtil delUserByUid(@PathVariable("uid")String uid){
-//		try {
-//			postServiceImpl.delUserByUid(uid);;
-//			return ResultUtil.ok();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return ResultUtil.error();
-//		}
-//	}
-//	
-//	@RequestMapping("editUser/{uid}")
-//	@RequiresPermissions("user:user:save")
-//	public String editUser(@PathVariable("uid")String uid,Model model){
-//		TbUsers user=postServiceImpl.selUserByUid(Long.parseLong(uid));
-//		model.addAttribute("user", user);
-//		return "page/user/editUser";
-//	}
-//	
-//	/**
-//	 * 更新用户信息
-//	 * @param user
-//	 * @return
-//	 */
-//	@SysLog(value="更新用户信息")
-//	@RequestMapping("updUser")
-//	@RequiresPermissions("user:user:update")
-//	@ResponseBody
-//	public ResultUtil updUser(TbUsers user){
-//		try {
-//			postServiceImpl.updUserService(user);
-//			return ResultUtil.ok();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return ResultUtil.error();
-//		}
-//	}
+
+	/**
+	 * 根据ID下架职位
+	 * @param uid
+	 * @return
+	 */
+	@SysLog(value="根据ID下架职位")
+	@RequestMapping("underPostByUid/{uid}")
+	@ResponseBody
+	public ResultUtil underPostByUid(@PathVariable("uid")Long uid){
+		try {
+			postServiceImpl.updPostByUid(uid,"下架");
+			return ResultUtil.ok();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultUtil.error();
+		}
+	}
+
+	/**
+	 * 根据ID发布职位
+	 * @param uid
+	 * @return
+	 */
+	@SysLog(value="根据ID发布职位")
+	@RequestMapping("subPostByUid/{uid}")
+	@ResponseBody
+	public ResultUtil subPostByUid(@PathVariable("uid")Long uid){
+		try {
+			postServiceImpl.updPostByUid(uid,"发布");
+			return ResultUtil.ok();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultUtil.error();
+		}
+	}
+
+	@RequestMapping("editPost/{uid}")
+	@RequiresPermissions("post:post:save")
+	public String editUser(@PathVariable("uid")String uid,Model model){
+		TbPosts post=postServiceImpl.selPostByUid(Long.parseLong(uid));
+		model.addAttribute("post", post);
+		model.addAttribute("zdeptname", deptServiceImpl.getDeptName(post.getZdept()));
+		return "page/post/editPost";
+	}
+
+	/**
+	 * 更新职位信息
+	 * @param post
+	 * @return
+	 */
+	@SysLog(value="更新职位信息")
+	@RequestMapping("updPost")
+//	@RequiresPermissions("post:user:update")
+	@ResponseBody
+	public ResultUtil updPost(TbPosts post){
+		try {
+			postServiceImpl.updPostService(post);
+			return ResultUtil.ok();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultUtil.error();
+		}
+	}
 }

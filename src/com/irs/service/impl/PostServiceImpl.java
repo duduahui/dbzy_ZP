@@ -2,17 +2,16 @@ package com.irs.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.irs.mapper.DeptMapper;
+import com.irs.mapper.TbPostsCvsMapper;
 import com.irs.mapper.TbPostsMapper;
-import com.irs.pojo.PostSearch;
-import com.irs.pojo.TbPosts;
-import com.irs.pojo.TbPostsExample;
-import com.irs.pojo.TbPostsExample.Criteria;
+import com.irs.pojo.*;
 import com.irs.service.PostService;
-import com.irs.util.MyUtil;
 import com.irs.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +20,12 @@ public class PostServiceImpl implements PostService {
 
 	@Autowired
 	private TbPostsMapper tbPostsMapper;
+
+	@Autowired
+	private DeptMapper deptMapper;
+
+	@Autowired
+	private TbPostsCvsMapper tbPostsCvsMapper;
 	
 //	@Override
 //	public TbPosts selPostByEmail(String eMail,Long uid) {
@@ -54,9 +59,7 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public void insPostService(TbPosts Post) throws Exception {
-
-		Date date=new Date();
-		Post.setCreateTime(date);
+		Post.setCreateTime(new Date());
 		tbPostsMapper.insert(Post);
 	}
 
@@ -66,27 +69,40 @@ public class PostServiceImpl implements PostService {
 		TbPostsExample example=new TbPostsExample();
 		//设置按创建时间降序排序
 		example.setOrderByClause("create_time DESC");
-		Criteria criteria = example.createCriteria();
-
-		if(search.getZpbm()!=null&&!"".equals(search.getZpbm())){
-			//注意：模糊查询需要进行拼接”%“  如下，不进行拼接是不能完成查询的哦。
-			criteria.andZpbmEqualTo("%"+search.getZpbm()+"%");
-		}
-		if(search.getZpgw()!=null&&!"-1".equals(search.getZpgw())){
-			criteria.andZpgwEqualTo(search.getZpgw());
-		}
-		if(search.getRztj()!=null&&!"-1".equals(search.getRztj())){
-			criteria.andZpgwEqualTo(search.getZpgw());
-		}
-		if(search.getCreateTimeStart()!=null&&!"".equals(search.getCreateTimeStart())){
-			criteria.andCreateTimeGreaterThanOrEqualTo(MyUtil.getDateByString(search.getCreateTimeStart()));
-		}
-		if(search.getCreateTimeEnd()!=null&&!"".equals(search.getCreateTimeEnd())){
-			criteria.andCreateTimeLessThanOrEqualTo(MyUtil.getDateByString(search.getCreateTimeEnd()));
-		}
+//		Criteria criteria = example.createCriteria();
+//
+//		if(search.getZpbm()!=null&&!"".equals(search.getZpbm())){
+//			//注意：模糊查询需要进行拼接”%“  如下，不进行拼接是不能完成查询的哦。
+//			criteria.andZpbmEqualTo("%"+search.getZpbm()+"%");
+//		}
+//		if(search.getZpgw()!=null&&!"-1".equals(search.getZpgw())){
+//			criteria.andZpgwEqualTo(search.getZpgw());
+//		}
+//		if(search.getRztj()!=null&&!"-1".equals(search.getRztj())){
+//			criteria.andZpgwEqualTo(search.getZpgw());
+//		}
+//		if(search.getCreateTimeStart()!=null&&!"".equals(search.getCreateTimeStart())){
+//			criteria.andCreateTimeGreaterThanOrEqualTo(MyUtil.getDateByString(search.getCreateTimeStart()));
+//		}
+//		if(search.getCreateTimeEnd()!=null&&!"".equals(search.getCreateTimeEnd())){
+//			criteria.andCreateTimeLessThanOrEqualTo(MyUtil.getDateByString(search.getCreateTimeEnd()));
+//		}
 
 		List<TbPosts> Posts = tbPostsMapper.selectByExample(example);
-		PageInfo<TbPosts> pageInfo = new PageInfo<TbPosts>(Posts);
+		List<TbPostsList> PostsList = new ArrayList<TbPostsList>();
+		for (TbPosts p:Posts) {
+			TbPostsList pl = new TbPostsList();
+			pl.setCreateTime(p.getCreateTime());
+			pl.setGzdd(p.getGzdd());
+			pl.setUid(p.getUid());
+			pl.setZdept(p.getZdept());
+			pl.setZname(p.getZname());
+			pl.setZdeptname(deptMapper.getDeptName(p.getZdept()));//用人单位名称
+			pl.setJlsl(tbPostsCvsMapper.countCvs(p.getUid()));//简历数量
+			pl.setZstatus(p.getZstatus());
+			PostsList.add(pl);
+		}
+		PageInfo<TbPostsList> pageInfo = new PageInfo<TbPostsList>(PostsList);
 		ResultUtil resultUtil = new ResultUtil();
 		resultUtil.setCode(0);
 		resultUtil.setCount(pageInfo.getTotal());
@@ -113,14 +129,20 @@ public class PostServiceImpl implements PostService {
 	public TbPosts selPostByUid(Long uid) {
 		return tbPostsMapper.selectByPrimaryKey(uid);
 	}
-//
-//	@Override
-//	public void updPostService(TbPosts Post) {
-//		TbPosts u = tbPostsMapper.selectByPrimaryKey(Post.getUid());
-//		Post.setPassword(u.getPassword());
-//		Post.seteCode(u.geteCode());
-//		Post.setCreateTime(u.getCreateTime());
-//		tbPostsMapper.updateByPrimaryKey(Post);
-//	}
+
+	@Override
+	public void updPostService(TbPosts post) {
+		TbPosts u = tbPostsMapper.selectByPrimaryKey(post.getUid());
+		post.setCreateTime(new Date());
+		tbPostsMapper.updateByPrimaryKey(post);
+	}
+	@Override
+	public void updPostByUid(Long uid,String zstatus) {
+		TbPosts post = tbPostsMapper.selectByPrimaryKey(uid);
+		post.setZstatus(zstatus);
+		post.setCreateTime(new Date());
+		tbPostsMapper.updateByPrimaryKey(post);
+	}
+
 
 }

@@ -14,4 +14,6 @@ public interface DeptService {
 	//获取部门列表
 	List<TbDepts> selDeptList();
 
+	String getDeptName(String uid);
+
 }

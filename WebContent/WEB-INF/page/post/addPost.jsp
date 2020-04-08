@@ -34,28 +34,86 @@
 </head>
 <body class="childrenBody">
 <form class="layui-form" style="width: 80%;" id="auf">
+	<input type="hidden" name="zstatus" value="创建" id="zstatus"/>
 	<div class="layui-form-item">
-	<div class="layui-inline">
-		<label class="layui-form-label">招聘部门</label>
-		<div class="layui-input-inline">
-			<select  id="zpbm" name="zpbm" lay-verify="required"  lay-filter="deptFilte" lay-search="">
-				<option value=""></option>
-			</select>
+	</div>
+
+	<div class="layui-form-item">
+	<label class="layui-form-label">职位名称</label>
+	<div class="layui-input-block">
+		<input type="text" id="zname" class="layui-input userName"
+			   lay-verify="required" placeholder="请输入名称" name="zname" value="">
+	</div>
+	</div>
+
+	<div class="layui-form-item">
+		<div class="layui-inline">
+			<label class="layui-form-label">用人单位</label>
+			<div class="layui-input-inline">
+				<select  id="zdept" name="zdept" lay-verify="required"  lay-filter="deptFilte" lay-search="">
+					<option value=""></option>
+				</select>
+			</div>
 		</div>
 	</div>
-	</div>
 	<div class="layui-form-item">
-	<label class="layui-form-label">招聘岗位</label>
-	<div class="layui-input-block">
-		<input type="text" id="zpgw" class="layui-input userName"
-			   lay-verify="required" placeholder="请输入岗位" name="zpgw" value="">
-	</div>
-	</div>
-	<div class="layui-form-item">
-		<label class="layui-form-label">任职条件</label>
+		<label class="layui-form-label">工作地点</label>
 		<div class="layui-input-block">
-			<input type="required" id="rztj" class="layui-input userName"
-				   lay-verify="text" placeholder="请输入任职条件" name="rztj" value="">
+			<input type="text" id="gzdd" class="layui-input userName"
+				   lay-verify="required" placeholder="请输入工作地点" name="gzdd" value="">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">招聘人数</label>
+		<div class="layui-input-block">
+			<input type="text" id="zprs" name="zprs"  class="layui-input userName"
+				   lay-verify="required" placeholder="请输入招聘人数"   value="">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">月薪范围</label>
+		<div class="layui-input-block">
+			<input type="text" id="yxfw" name="yxfw"  class="layui-input userName"
+				   lay-verify="required" placeholder="请输入月薪范围"   value="">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">学历要求</label>
+		<div class="layui-input-block">
+			<input type="text" id="xlyq" name="xlyq"  class="layui-input userName"
+				   lay-verify="required" placeholder="请输入学历要求"   value="">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">专业要求</label>
+		<div class="layui-input-block">
+			<input type="text" id="zyyq" name="zyyq"  class="layui-input userName"
+				   lay-verify="required" placeholder="请输入专业要求"   value="">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">工作年限(年)</label>
+		<div class="layui-input-block">
+			<input type="required" id="gznx" name="gznx" class="layui-input userName"
+				   lay-verify="text" placeholder="请输入工作年限"  value="">
+		</div>
+	</div>
+	<div class="layui-form-item layui-form-text">
+		<label class="layui-form-label">岗位职责</label>
+		<div class="layui-input-block">
+			<textarea placeholder="请输入内容"  id="gwzz" name="gwzz" class="layui-textarea"></textarea>
+		</div>
+	</div>
+	<div class="layui-form-item layui-form-text">
+		<label class="layui-form-label">任职要求</label>
+		<div class="layui-input-block">
+			<textarea placeholder="请输入内容"  id="rzyq" name="rzyq" class="layui-textarea"></textarea>
+		</div>
+	</div>
+	<div class="layui-form-item layui-form-text">
+		<label class="layui-form-label">福利待遇</label>
+		<div class="layui-input-block">
+			<textarea placeholder="请输入内容"  id="fldy" name="fldy" class="layui-textarea"></textarea>
 		</div>
 	</div>
 <%--	<div class="layui-form-item">--%>
@@ -95,7 +153,8 @@
 <%--	</div>--%>
 	<div class="layui-form-item">
 		<div class="layui-input-block">
-			<button class="layui-btn" lay-submit="" lay-filter="addPost">立即提交</button>
+			<button class="layui-btn" lay-submit="" lay-filter="addPost">保存</button>
+			<button class="layui-btn" lay-submit="" lay-filter="subPost">发布</button>
 		</div>
 	</div>
 </form>

@@ -80,48 +80,45 @@ var form;
 						id : 'postList',
 						elem : '#postList',
 						url : ctx + '/post/getPostList' //数据接口
-						,
-						limit : 10//每页默认数
-						,
-						limits : [ 10, 20, 30, 40 ],
-						cols : [ [ //表头
+						,limit : 10//每页默认数
+						,limits : [ 10, 20, 30, 40 ]
+						,cols : [ [ //表头
 							{
 								type : 'checkbox'
 							},
 							{
 								field : 'uid',
-								title : '序号',
-								width : 40
+								title : '序号'
 							},
 							{
-								field : 'zpbm2',
-								title : '招聘部门2'
+								field : 'zdeptname',
+								title : '用人单位'
 							},
 							{
-								field : 'zpbm',
-								title : '招聘部门'
+								field : 'gzdd',
+								title : '工作地点'
 							},
 							{
-								field : 'zpgw',
-								title : '招聘岗位'
-							},
-							{
-								field : 'rztj',
-								title : '任职条件'
+								field : 'jlsl',
+								title : '简历数量'
 							},
 							{
 								field : 'createTime',
-								title : '发布日期',
+								title : '发布时间',
 								templet : '<div>{{ formatTime(d.createTime,"yyyy-MM-dd hh:mm:ss")}}</div>'
-							}, {
+							},
+							{
+								field : 'zstatus',
+								title : '职位状态'
+							},{
 								title : '操作',
-								toolbar : '#barEdit'
+								toolbar : '#barEdit', width:100
 							} ] ],
 						page : true
 						,where: {timestamp: (new Date()).valueOf()}
 						,done:function(res,curr,count){
 							// 隐藏列
-							$(".layui-table-box").find("[data-field='zpbm2']").css("display","none");
+							$(".layui-table-box").find("[data-field='uid']").css("display","none");
 						}
 						//开启分页
 					});
@@ -146,24 +143,116 @@ var form;
 							})
 							layer.close(index);
 						});
-					} else if (obj.event === 'edit') {
-						layer.open({
-							type : 2,
-							title : "编辑用户",
-							area : [ '400px', '500px' ],
-							content : ctx + "/user/editUser/"
-								+ data.uid //这里content是一个普通的String
-						})
+					}else if(obj.event === 'submit'){
+						if(data.zstatus === '发布'){
+							layer
+								.msg(
+									"该职位已发布！",
+									{
+										icon : 5
+									});
+						}else if(data.zstatus === '下架'){layer
+							.msg(
+								"该职位已下架！",
+								{
+									icon : 5
+								});
+
+						}
+						else{
+							layer.confirm('是否发布此职位？', function(index) {
+								$.ajax({
+									url : ctx + '/post/underPostByUid/'
+										+ data.uid,
+									type : "get",
+									success : function(d) {
+										if (d.code == 0) {
+											location.reload();
+											layer
+												.msg(
+													"发布成功！",
+													{
+														icon : 1
+													});
+										} else {
+											layer.msg(data.msg, {
+												icon : 5
+											});
+										}
+									}
+								})
+								layer.close(index);
+							});
+						}
+
+
+					} else if(obj.event === 'under'){
+						if(data.zstatus === '下架'){
+							layer
+								.msg(
+									"该职位已发布！",
+									{
+										icon : 5
+									});
+						}else if(data.zstatus === '发布'||data.zstatus === '创建'){
+							layer.confirm('是否下架此职位？', function(index) {
+								$.ajax({
+									url : ctx + '/post/underPostByUid/'
+										+ data.uid,
+									type : "get",
+									success : function(d) {
+										if (d.code == 0) {
+											// obj.del();
+											location.reload();
+											layer
+												.msg(
+													"下架成功！",
+													{
+														icon : 1
+													});
+										} else {
+											layer.msg(data.msg, {
+												icon : 5
+											});
+										}
+									}
+								})
+								layer.close(index);
+							});
+						}
+					}else if (obj.event === 'edit') {
+						if(data.zstatus === '下架'){
+							layer
+								.msg(
+									"该职位已下架，不允许修改！",
+									{
+										icon : 5
+									});
+						}else if(data.zstatus === '发布' ){
+							layer
+								.msg(
+									"该职位已发布，不允许修改！",
+									{
+										icon : 5
+									});
+						}else{
+							var index = layui.layer.open({
+								// layer.open({
+								type : 2,
+								title : "修改职位",
+								content : ctx + "/post/editPost/"
+									+ data.uid, //这里content是一个普通的String
+								success : function(layero, index) {
+
+								}
+							})
+							//改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+							$(window).resize(function() {
+								layui.layer.full(index);
+							})
+							layui.layer.full(index);}
 					}
 					else if (obj.event === 'check') {
-						// var index2 = top.layer.msg('查询数据中，请稍候',{icon: 16,time:false,shade:0.8});
-						// var msg,flag=true;
-						// setTimeout(function(){
-						// 	if(flag){
-						// 		top.layer.close(index2);
-						// 	}
-						//
-						// },500);
 						var index = layui.layer.open({
 							title : "简历列表",
 							type : 2,
