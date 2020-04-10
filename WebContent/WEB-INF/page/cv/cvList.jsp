@@ -24,6 +24,8 @@
 <script>
 	var ctx = "${ctx}";
 </script>
+
+
 </head>
 <body class="childrenBody">
 <form class="layui-form">
@@ -102,7 +104,17 @@
    		 	<span style="color: #FF5722;">禁用</span>
   		{{#  } }}
 	</script>
+<script id="switchTpl" type="text/html">
+	<div class="layui-form-item">
+		<input type="radio" name="{{d.uid}}"  value="2" lay-skin="switch"   lay-filter="jlcz"
+			   title="适合" {{d.cvstatus == 2 ? 'checked':''}}>
+		<input type="radio" name="{{d.uid}}" value="3" lay-skin="switch"   lay-filter="jlcz"
+			   title="不适合" {{d.cvstatus == 3 ? 'checked':''}}>
+		<input type="radio" name="{{d.uid}}" value="4" lay-skin="switch"  lay-filter="jlcz"
+			   title="转人才库" {{d.cvstatus == 4 ? 'checked':''}}>
+	</div>
 
+</script>
 <script type="text/javascript" src="${ctx }/page/cv/cvList.js"></script>
 </body>
 </html>

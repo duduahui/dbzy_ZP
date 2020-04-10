@@ -37,6 +37,7 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
 				/css/**=anon
 				/js/**=anon
 				/layui/**=anon
+				/assets/**=anon
 				/sys/vcode=anon
 				/sys/getMenus=anon
 				/sys/login=anon

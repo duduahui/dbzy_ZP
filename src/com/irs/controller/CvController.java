@@ -1,12 +1,15 @@
 package com.irs.controller;
 
+import com.irs.annotation.SysLog;
 import com.irs.pojo.CvSearch;
 import com.irs.pojo.TbCvs;
 import com.irs.pojo.TbPosts;
+import com.irs.pojo.TbUsers;
 import com.irs.service.CvService;
 import com.irs.service.PostService;
 import com.irs.util.ResultUtil;
 import com.irs.util.TurnBPM;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,10 +33,20 @@ public class CvController {
 	public String cvList(){
 		return "page/cv/cvList";
 	}
-	@RequestMapping("getCvList")
+    @RequestMapping("cvRckList")
 //	@RequiresPermissions("post:post:list")
+    public String cvRckList(){
+        return "page/cv/cvRckList";
+    }
+	@RequestMapping("getCvList")
 	@ResponseBody
 	public ResultUtil getCvList(Integer page, Integer limit, CvSearch search){
+		return cvServiceImpl.selCvs(page,limit,search);
+	}
+	@RequestMapping("getRckCvList")
+	@ResponseBody
+	public ResultUtil getRckCvList(Integer page, Integer limit, CvSearch search){
+		search.setCvstatus("4");
 		return cvServiceImpl.selCvs(page,limit,search);
 	}
 
@@ -50,7 +63,7 @@ public class CvController {
 			//不是由职位跳转过来
 			return cvServiceImpl.selCvs(page,limit,search);
 		}else{
-			search.setUserid(uid);
+			search.setPostid(uid);
 			return cvServiceImpl.selPostCvs(page,limit,search);
 		}
 	}
@@ -70,13 +83,24 @@ public class CvController {
      * 2020年3月5日09:40:44
      **/
 	@RequestMapping("checkCv/{uid}")
-    @ResponseBody
+//    @ResponseBody
 	public String checkCv(@PathVariable("uid")String uid, Model model){
 		TbCvs cv=cvServiceImpl.selCvByUid(Long.parseLong(uid));
 		model.addAttribute("cv", cv);
 		return "page/cv/checkCv";
 	}
-
+	/**
+	 * 查看简历
+	 * dudu
+	 * 2020年3月5日09:40:44
+	 **/
+	@RequestMapping("checkCv ")
+//    @ResponseBody
+	public String checkCv(){
+//		TbCvs cv=cvServiceImpl.selCvByUid(Long.parseLong(uid));
+//		model.addAttribute("cv", cv);
+		return "page/cv/checkCv";
+	}
     /**
      * 转发简历
      * dudu
@@ -106,7 +130,26 @@ public class CvController {
 			return ResultUtil.ok();
 		}
 		return ResultUtil.error("提交失败！");
+	}
+	/**
+	 * 更新简历状态
+	 * **/
+	@RequestMapping("updCvs/{uid}")
+	@ResponseBody
+	public ResultUtil updCvs(@PathVariable("uid")String uid){
+		String[] uid_value = uid.split(",");
+		try{
+			TbCvs tbCvs = cvServiceImpl.selCvByUid(Long.parseLong(uid_value[0]));
+			tbCvs.setCvstatus(uid_value[1]);
+			cvServiceImpl.editCvService(tbCvs);
+		}catch (Exception e){
 
+	}
+		int result = 0;
+		if(result == 0){
+			return ResultUtil.ok();
+		}
+		return ResultUtil.error("提交失败！");
 	}
 //	@RequestMapping("addUser")
 //	@RequiresPermissions("user:user:save")
@@ -210,15 +253,14 @@ public class CvController {
 //	}
 //	
 //	/**
-//	 * 更新用户信息
-//	 * @param user
+//	 * 更新简历状态
+//	 * @param cv
 //	 * @return
 //	 */
-//	@SysLog(value="更新用户信息")
-//	@RequestMapping("updUser")
-//	@RequiresPermissions("user:user:update")
+//	@SysLog(value="更新简历状态")
+//	@RequestMapping("updCvs")
 //	@ResponseBody
-//	public ResultUtil updUser(TbUsers user){
+//	public ResultUtil updCvs(TbUsers user){
 //		try {
 //			postServiceImpl.updUserService(user);
 //			return ResultUtil.ok();

@@ -42,7 +42,7 @@ public  class WxCvsController {
 			resultAll.put("userid", tbCvs.getUserid());
 			resultAll.put("nickname",tbCvs.getNickname());
 			resultAll.put("phone", tbCvs.getPhone());
-			resultAll.put("email", tbCvs.getEmail());
+//			resultAll.put("email", tbCvs.getEmail());
 			data.add(resultAll);
 		}
 		return ResponseUtil.ok(data);
@@ -62,7 +62,7 @@ public  class WxCvsController {
 		resultAll.put("userid", tbCvs.getUserid());
 		resultAll.put("nickname",tbCvs.getNickname());
 		resultAll.put("phone", tbCvs.getPhone());
-		resultAll.put("email", tbCvs.getEmail());
+//		resultAll.put("email", tbCvs.getEmail());
 		return ResponseUtil.ok(resultAll);
 	}
 	/**
@@ -182,7 +182,7 @@ public  class WxCvsController {
 	public ResultUtil delCvs(@PathVariable("uid")Long uid){
 		try {
 			TbCvs cvs = new TbCvs();
-			cvs.setEmail("0");
+			cvs.setCvstatus("0");
 			cvs.setUid(uid);
 			cvServiceImpl.insCvService(cvs);
 			return ResultUtil.ok();

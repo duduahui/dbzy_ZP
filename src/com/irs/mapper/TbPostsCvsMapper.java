@@ -20,7 +20,7 @@ public interface TbPostsCvsMapper {
     List<TbPostsCvs> selectByExample(TbPostsCvsExample example);
 
     TbPostsCvs selectByPrimaryKey(TbPostsCvsKey key);
-    @Select("select t.* from tb_cvs t left join tb_posts_cvs a on t.uid = a.cvcode  where a.postcode =#{0} "+" order by t.createtime desc")
+    @Select("select t.* from tb_cvs t left join tb_posts_cvs a on t.uid = a.cvcode  where t.cvstatus <> 0 and a.postcode =#{0} "+" order by t.createtime desc")
     List<TbCvs> getTbCvs(String zwid);
 
     int updateByExampleSelective(@Param("record") TbPostsCvs record, @Param("example") TbPostsCvsExample example);

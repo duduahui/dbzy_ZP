@@ -85,46 +85,112 @@ var form;
 						limits : [ 10, 20, 30, 40 ],
 						cols : [ [ //表头
 							{
-								type : 'checkbox'
+								type : 'checkbox', fixed: true
+							},
+							{
+								title : '操作',
+								toolbar : '#barEdit',
+								width: 80
 							},
 							{
 								field : 'uid',
-								title : '序号',
-								width : 40
+								title : '序号'
 							},
 							{
-								field : 'zwid',
-								title : '职位编码'
-
+								field : 'cvid',
+								title : '简历编号'
 							},
 							{
 								field : 'nickname',
 								title : '姓名'
 							},
 							{
-								field : 'phone',
-								title : '联系方式'
+								field : 'zname',
+								title : '应聘职位'
+
 							},
 							{
-								field : 'email',
-								title : '邮箱'
+								field : 'gzdd',
+								title : '工作地点'
+							},
+							{
+								field : 'age',
+								title : '年龄'
+							},
+							{
+								field : 'xueli',
+								title : '学历'
+							},
+							{
+								field : 'byyx',
+								title : '毕业院校'
+							},
+							{
+								field : 'lxgznx',
+								title : '连续工作年限'
 							},
 							{
 								field : 'createtime',
-								title : '发布日期',
+								title : '投递时间',
 								templet : '<div>{{ formatTime(d.createtime,"yyyy-MM-dd hh:mm:ss")}}</div>'
-							}, {
-								title : '操作',
-								toolbar : '#barEdit'
-							} ] ],
+							},
+							{
+								field : 'cvstatus',
+								title : '简历状态',
+								sort: true,
+								width: 110
+							},
+							{
+								field : 'clstatus',
+								title : '状态处理',
+							    toolbar: '#switchTpl',
+								width: 290
+							}] ],
 						page : true
 						,where: {timestamp: (new Date()).valueOf()}
 						//开启分页
 						,done:function(res,curr,count){
 							// 隐藏列
-							$(".layui-table-box").find("[data-field='zwid']").css("display","none");
+							$(".layui-table-box").find("[data-field='uid']").css("display","none");
+							$(".layui-table-box").find("[data-field='cvid']").css("display","none");
+							// $(".layui-table-box").find("[data-field='cvstatus']").css("display","none");
 						}
 					});
+
+
+
+
+
+				$('.demoTable .layui-btn').on('click', function(){
+					var type = $(this).data('type');
+					active[type] ? active[type].call(this) : '';
+				});
+				//监听状态操作
+
+				form.on('radio(jlcz)', function (data) {
+					// alert(this.name+"=="+data.value);
+					$.ajax({
+						url : ctx + "/cv/updCvs/"+ this.name+","
+							+ data.value,
+						type : "get",
+						success : function(d) {
+							if (d.code == 0) {
+								// obj.del();
+							} else {
+								layer.msg(data.msg, {
+									icon : 5
+								});
+							}
+						}
+					})
+				});
+				//监听排序
+				table.on('sort(cvList)', function(obj) {
+					table.reload('cvList', {
+						initSort: obj
+					});
+				});
+				table.reload('cvList', {});
 
 				//监听工具条
 				table.on('tool(cvList)', function(obj) {

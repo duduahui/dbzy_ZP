@@ -3,9 +3,11 @@ package com.irs.service.impl;
 import com.github.pagehelper.PageInfo;
 import com.irs.mapper.TbCvsMapper;
 import com.irs.mapper.TbPostsCvsMapper;
+import com.irs.mapper.TbPostsMapper;
 import com.irs.pojo.*;
 import com.irs.pojo.TbCvsExample.Criteria;
 import com.irs.service.CvService;
+import com.irs.util.GetAge;
 import com.irs.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class CvServiceImpl implements CvService {
 
 	@Autowired
 	private TbPostsCvsMapper tbPostsCvsMapper;
+	@Autowired
+	private TbPostsMapper tbPostsMapper;
 //	@Override
 //	public TbCvs selCvByEmail(String eMail,Long uid) {
 //		TbCvsExample example=new TbCvsExample();
@@ -56,17 +60,15 @@ public class CvServiceImpl implements CvService {
 
 
 	@Override
-	public ResultUtil selCvs(Integer page, Integer limit,CvSearch search) {
+	public ResultUtil selCvs(Integer page, Integer limit, CvSearch search) {
 		ResultUtil resultUtil = new ResultUtil();
 		List<TbCvs> Cvs = new ArrayList<TbCvs>();
 		TbCvsExample example=new TbCvsExample();
-
 		Criteria criteria = example.createCriteria();
-
 		example.setOrderByClause("createtime DESC");
-		if(search.getUserid()!=null&&!"".equals(search.getUserid())){
+		if(search.getCvstatus()!=null&&!"".equals(search.getCvstatus())){
 			//注意：模糊查询需要进行拼接”%“  如下，不进行拼接是不能完成查询的哦。
-			criteria.anduseridEqualTo(search.getUserid());
+			criteria.andCvstatusEqualTo(search.getCvstatus());
 		}
 		Cvs = tbCvsMapper.selectByExample(example);
 		PageInfo<TbCvs> pageInfo = new PageInfo<TbCvs>(Cvs);
@@ -79,8 +81,27 @@ public class CvServiceImpl implements CvService {
 	public ResultUtil selPostCvs(Integer page, Integer limit,CvSearch search) {
 		ResultUtil resultUtil = new ResultUtil();
 		List<TbCvs> Cvs = new ArrayList<TbCvs>();
-		Cvs = tbPostsCvsMapper.getTbCvs(search.getUserid());
-		PageInfo<TbCvs> pageInfo = new PageInfo<TbCvs>(Cvs);
+		TbPosts tbPosts = tbPostsMapper.selectByPrimaryKey(Long.parseLong(search.getPostid()));
+		Cvs = tbPostsCvsMapper.getTbCvs(search.getPostid());//散装查询
+		List<TbCvsList> cvsLists = new ArrayList<TbCvsList>();
+
+		for (TbCvs cv:Cvs
+			 ) { TbCvsList cvsList = new TbCvsList();
+			cvsList.setUid(cv.getUid());//序号
+			cvsList.setCvid(cv.getCvid());//简历编号
+			cvsList.setNickname(cv.getNickname());//姓名
+			cvsList.setZname(tbPosts.getZname());//应聘职位
+			cvsList.setGzdd(tbPosts.getGzdd());//工作地点
+			cvsList.setAge(new GetAge().evaluate(cv.getSfz()));//计算年龄
+			cvsList.setXueli(cv.getXueli());//学历
+			cvsList.setByyx(cv.getByyx());//毕业院校
+			cvsList.setLxgznx("3");//连续工作年限
+			cvsList.setCreatetime(cv.getCreatetime());//投递时间
+			cvsList.setCvstatus(cv.getCvstatus());//简历状态
+			cvsLists.add(cvsList);
+		}
+
+		PageInfo<TbCvsList> pageInfo = new PageInfo<TbCvsList>(cvsLists);
 		resultUtil.setCode(0);
 		resultUtil.setCount(pageInfo.getTotal());
 		resultUtil.setData(pageInfo.getList());
