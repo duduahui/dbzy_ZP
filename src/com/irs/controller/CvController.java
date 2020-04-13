@@ -5,6 +5,9 @@ import com.irs.pojo.CvSearch;
 import com.irs.pojo.TbCvs;
 import com.irs.pojo.TbPosts;
 import com.irs.pojo.TbUsers;
+import com.irs.pojo.cv.TbCvsGz;
+import com.irs.pojo.cv.TbCvsJy;
+import com.irs.pojo.cv.TbCvsPx;
 import com.irs.service.CvService;
 import com.irs.service.PostService;
 import com.irs.util.ResultUtil;
@@ -16,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("cv/")
@@ -86,7 +91,13 @@ public class CvController {
 //    @ResponseBody
 	public String checkCv(@PathVariable("uid")String uid, Model model){
 		TbCvs cv=cvServiceImpl.selCvByUid(Long.parseLong(uid));
+        List<TbCvsPx> tbCvsPxList =cvServiceImpl.selCvsPxByUid(cv.getCvid());
+		List<TbCvsJy> tbCvsJyList =cvServiceImpl.selCvsJyByUid(cv.getCvid());
+		List<TbCvsGz> tbCvsGzList =cvServiceImpl.selCvsGzByUid(cv.getCvid());
 		model.addAttribute("cv", cv);
+		model.addAttribute("cvjy", tbCvsJyList);
+		model.addAttribute("cvgz", tbCvsGzList);
+		model.addAttribute("cvpx", tbCvsPxList);
 		return "page/cv/checkCv";
 	}
 	/**

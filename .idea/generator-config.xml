@@ -32,6 +32,93 @@
             </Config>
           </value>
         </entry>
+        <entry key="tb_cvs_gz">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="TbCvsGzMapper" />
+              <option name="daoPackage" value="com.irs.mapper" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/src/com/irs/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="TbCvsGz" />
+              <option name="modelPackage" value="com.irs.pojo" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/src/com/irs/pojo" />
+              <option name="mysql_8" value="true" />
+              <option name="name" value="tb_cvs_gz" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="uid" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="tb_cvs_gz" />
+              <option name="useExample" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+              <option name="xmlTargetFolder" value="$PROJECT_DIR$/src/com/irs/mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="tb_cvs_jy">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="TbCvsJyMapper" />
+              <option name="daoPackage" value="com.irs.mapper" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/src/com/irs/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="TbCvsJy" />
+              <option name="modelPackage" value="com.irs.pojo" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/src/com/irs/pojo" />
+              <option name="mysql_8" value="true" />
+              <option name="name" value="tb_cvs_jy" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="uid" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="tb_cvs_jy" />
+              <option name="useExample" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+              <option name="xmlTargetFolder" value="$PROJECT_DIR$/src/com/irs/mapper" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="tb_cvs_px">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="TbCvsPxMapper" />
+              <option name="daoPackage" value="com.irs.mapper" />
+              <option name="daoPostfix" value="Mapper" />
+              <option name="daoTargetFolder" value="$PROJECT_DIR$/src/com/irs/mapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="TbCvsPx" />
+              <option name="modelPackage" value="com.irs.pojo" />
+              <option name="modelTargetFolder" value="$PROJECT_DIR$/src/com/irs/pojo" />
+              <option name="mysql_8" value="true" />
+              <option name="name" value="tb_cvs_px" />
+              <option name="needToStringHashcodeEquals" value="true" />
+              <option name="offsetLimit" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="uid" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="tb_cvs_px" />
+              <option name="useExample" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="mapper" />
+              <option name="xmlTargetFolder" value="$PROJECT_DIR$/src/com/irs/mapper" />
+            </Config>
+          </value>
+        </entry>
         <entry key="tb_posts">
           <value>
             <Config>
@@ -87,36 +174,6 @@
               <option name="xmlMvnPath" value="src/main/resources" />
               <option name="xmlPackage" value="mapper" />
               <option name="xmlTargetFolder" value="$PROJECT_DIR$" />
-            </Config>
-          </value>
-        </entry>
-        <entry key="tb_tests">
-          <value>
-            <Config>
-              <option name="comment" value="true" />
-              <option name="daoMvnPath" value="" />
-              <option name="daoName" value="TbTestsMapper" />
-              <option name="daoPackage" value="com.irs.mapper" />
-              <option name="daoPostfix" value="Mapper" />
-              <option name="daoTargetFolder" value="$PROJECT_DIR$/src/com/irs/mapper" />
-              <option name="modelMvnPath" value="" />
-              <option name="modelName" value="TbTests" />
-              <option name="modelPackage" value="" />
-              <option name="modelTargetFolder" value="$PROJECT_DIR$/src/com/irs/pojo" />
-              <option name="mysql_8" value="true" />
-              <option name="name" value="tb_tests" />
-              <option name="needToStringHashcodeEquals" value="true" />
-              <option name="offsetLimit" value="true" />
-              <option name="overrideXML" value="true" />
-              <option name="primaryKey" value="uid" />
-              <option name="projectFolder" value="$PROJECT_DIR$" />
-              <option name="tableName" value="tb_tests" />
-              <option name="useActualColumnNames" value="true" />
-              <option name="useExample" value="true" />
-              <option name="useSchemaPrefix" value="true" />
-              <option name="xmlMvnPath" value="" />
-              <option name="xmlPackage" value="mapper" />
-              <option name="xmlTargetFolder" value="D:\duduwork\irs\src\com\irs\mapper" />
             </Config>
           </value>
         </entry>

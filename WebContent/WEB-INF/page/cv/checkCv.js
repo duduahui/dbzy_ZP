@@ -7,42 +7,16 @@ layui.config({
 		laydate = layui.laydate;
 		$ = layui.jquery;
 		form = layui.form;
-		
+
 		laydate.render({
 			elem: '#birthday' //指定元素
 			,max: 'new Date()'
 		});
-		
-		// $("#nickname").blur(function(){
-		// 	$.ajax({
-	    //         type: "get",
-	    //         url: ctx+"/user/checkUserByNickname/"+$("#uid").val()+"&nickname="+$("#nickname").val(),
-	    //         success:function(data){
-	    //         	if(data.code!=0){
-	    //         		top.layer.msg(data.msg);
-	    //         		$("#nickname").val("");
-	    //         		$("#nickname").focus();
-	    //         	}
-	    //         }
-	    //     });
-		// });
-		//
-		// $("#eMail").blur(function(){
-		// 	$.ajax({
-		// 		type: "post",
-		// 		url: ctx+"/user/checkUserByEmail/"+$("#uid").val()+"&eMail="+$("#eMail").val(),
-		// 		success:function(data){
-		// 			if(data.code!=0){
-		// 				top.layer.msg(data.msg);
-		// 				$("#eMail").val("");
-		// 				$("#eMail").focus();
-		// 			}
-		// 		}
-		// 	});
-		// });
 
-		
- 	form.on("submit(subCv)",function(data){
+
+
+
+	form.on("submit(subCv)",function(data){
 		var zwid =  $("#zwid").val();
  		//弹出loading
 		console.log("zwid:"+zwid);

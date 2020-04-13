@@ -4,8 +4,15 @@ import com.github.pagehelper.PageInfo;
 import com.irs.mapper.TbCvsMapper;
 import com.irs.mapper.TbPostsCvsMapper;
 import com.irs.mapper.TbPostsMapper;
+import com.irs.mapper.src.cv.TbCvsGzMapper;
+import com.irs.mapper.src.cv.TbCvsJyMapper;
+import com.irs.mapper.src.cv.TbCvsPxMapper;
 import com.irs.pojo.*;
 import com.irs.pojo.TbCvsExample.Criteria;
+import com.irs.pojo.cv.TbCvsGz;
+import com.irs.pojo.cv.TbCvsGzExample;
+import com.irs.pojo.cv.TbCvsJy;
+import com.irs.pojo.cv.TbCvsPx;
 import com.irs.service.CvService;
 import com.irs.util.GetAge;
 import com.irs.util.ResultUtil;
@@ -22,6 +29,15 @@ public class CvServiceImpl implements CvService {
 
 	@Autowired
 	private TbCvsMapper tbCvsMapper;
+
+	@Autowired
+	private TbCvsPxMapper tbCvsPxMapper;
+
+	@Autowired
+	private TbCvsJyMapper tbCvsJyMapper;
+
+	@Autowired
+	private TbCvsGzMapper tbCvsGzMapper;
 
 	@Autowired
 	private TbPostsCvsMapper tbPostsCvsMapper;
@@ -148,6 +164,21 @@ public class CvServiceImpl implements CvService {
 	@Override
 	public TbCvs selCvByUid(Long uid) {
 		return tbCvsMapper.selectByPrimaryKey(uid);
+	}
+
+	@Override
+	public List<TbCvsGz> selCvsGzByUid(String cvid){
+		return tbCvsMapper.selectByGzCvid(cvid);
+	}
+
+	@Override
+	public List<TbCvsJy> selCvsJyByUid(String cvid){
+		return tbCvsMapper.selectByJyCvid(cvid);
+	}
+
+	@Override
+	public List<TbCvsPx> selCvsPxByUid(String cvid){
+		return tbCvsMapper.selectByPxCvid(cvid);
 	}
 //
 //	@Override

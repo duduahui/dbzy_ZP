@@ -2,7 +2,12 @@ package com.irs.service;
 
 import com.irs.pojo.CvSearch;
 import com.irs.pojo.TbCvs;
+import com.irs.pojo.cv.TbCvsGz;
+import com.irs.pojo.cv.TbCvsJy;
+import com.irs.pojo.cv.TbCvsPx;
 import com.irs.util.ResultUtil;
+
+import java.util.List;
 
 public interface CvService {
 
@@ -34,4 +39,13 @@ public interface CvService {
 
  	//转发简历至职位
  	public void insCv2PostService(String postStr);
+
+	//查询简历教育子表
+	public List<TbCvsJy> selCvsJyByUid(String cvid);
+
+	//查询简历培训子表
+	public List<TbCvsPx> selCvsPxByUid(String cvid);
+
+	//查询简历工作子表
+	public List<TbCvsGz> selCvsGzByUid(String cvid);
 }
