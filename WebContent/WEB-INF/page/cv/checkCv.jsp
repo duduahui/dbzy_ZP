@@ -47,7 +47,7 @@
 </style>
 </head>
 <body class="childrenBody">
-	<form class="layui-form" style="width: 80%;">
+	<form class="layui-form" style="width: 80%;" id="auf">
 		<!-- 简历id -->
 	<input type="hidden" name="uid" value="${cv.uid }" id="uid"/>
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
@@ -236,7 +236,16 @@
 <%--				<p>[此处如果有一些能够量化的、且比较个性的指标会有加分，比如喜爱跑步坚持夜跑200小时或者200km等]--%>
 <%--					<span class="mark-txt">“多静多思考，反省不张扬”</span>是我给自己总结的“十字箴言”，鞭策自己做人既不能以己度人，也不以人观己，要脚踏实地做事，坚持自己的梦想和本心。</p>--%>
 <%--			</section>--%>
+<%--            <section>--%>
+<%--                <div class="layui-form-item">--%>
+<%--                    <div class="layui-input-block">--%>
+<%--                        <button class="layui-btn" lay-submit="" lay-filter="turnBPM">启动BPM流程</button>--%>
+<%--                        &lt;%&ndash;                <button class="layui-btn" lay-submit="" lay-filter="subPost">发布</button>&ndash;%&gt;--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </section>--%>
 		</section>
+
 	</article>
 
 
@@ -247,16 +256,18 @@
 	</footer>
 
 	<!-- 侧栏 -->
-<%--	<aside>--%>
-<%--		<ul>--%>
+	<aside>
+		<ul>
+			<li>
+<%--				<a href="#" target="_blank" style="width: 100px">启动BPM流程</a>--%>
+                <button class="layui-btn" lay-submit="" lay-filter="turnBPM">启动BPM流程</button>
+			</li>
 <%--			<li>--%>
-<%--				<a href="#" target="_blank">下载</a>--%>
-<%--			</li>--%>
-<%--			<li>--%>
-<%--				<a href="http://if2er.com/" target="_blank">Blog</a>--%>
-<%--			</li>--%>
-<%--		</ul>--%>
-<%--	</aside>--%>
+<%--                <button class="layui-btn" lay-submit="" lay-filter="downLoad">下载</button>--%>
+<%--            </li>--%>
+        </ul>
+	</aside>
 <%--	<script src="./assets/js/index.js"></script>--%>
+    </form>
 </body>
 </html>
