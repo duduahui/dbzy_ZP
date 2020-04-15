@@ -75,10 +75,10 @@
 	</div>
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
 	<script type="text/html" id="barEdit">
-		<a class="layui-btn layui-btn layui-btn-xs" lay-event="edit">查看</a>
+		<a class="layui-btn layui-btn layui-btn-xs" lay-event="check">查看简历</a>
 		<a class="layui-btn layui-btn layui-btn-xs" lay-event="submit">发布</a>
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="under">下架</a>
-  		<a class="layui-btn layui-btn layui-btn-xs" lay-event="check">查看简历</a>
+		<a class="layui-btn layui-btn layui-btn-xs" lay-event="edit">查看</a>
 <%--  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
 <%--		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
 	</script>

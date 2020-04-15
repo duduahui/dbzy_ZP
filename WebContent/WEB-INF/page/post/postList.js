@@ -85,6 +85,9 @@ var form;
 						,cols : [ [ //表头
 							{
 								type : 'checkbox'
+							},{
+								title : '操作',
+								toolbar : '#barEdit', width:100
 							},
 							{
 								field : 'uid',
@@ -110,9 +113,6 @@ var form;
 							{
 								field : 'zstatus',
 								title : '职位状态'
-							},{
-								title : '操作',
-								toolbar : '#barEdit', width:100
 							} ] ],
 						page : true
 						,where: {timestamp: (new Date()).valueOf()}

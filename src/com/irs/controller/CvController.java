@@ -1,23 +1,20 @@
 package com.irs.controller;
 
-import com.irs.annotation.SysLog;
-import com.irs.pojo.CvSearch;
-import com.irs.pojo.TbCvs;
-import com.irs.pojo.TbPosts;
-import com.irs.pojo.TbUsers;
+import com.irs.pojo.*;
 import com.irs.pojo.cv.TbCvsGz;
 import com.irs.pojo.cv.TbCvsJy;
 import com.irs.pojo.cv.TbCvsPx;
 import com.irs.service.CvService;
 import com.irs.service.PostService;
+import com.irs.service.PsndocService;
 import com.irs.util.ResultUtil;
 import com.irs.util.TurnBPM;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -31,6 +28,9 @@ public class CvController {
 	private CvService cvServiceImpl;
 	@Autowired
 	private PostService postServiceImpl;
+	@Autowired
+	private PsndocService psndocServiceImpl;
+
 	
 
 	@RequestMapping("cvList")
@@ -59,7 +59,6 @@ public class CvController {
 	 * 简历列表
 	 * **/
 	@RequestMapping("getCvList/{uid}")
-//	@RequiresPermissions("post:post:list")
 	@ResponseBody
 
 	public ResultUtil getCvList(Integer page, Integer limit, CvSearch search,@PathVariable("uid")String uid){
@@ -90,11 +89,14 @@ public class CvController {
 	@RequestMapping("checkCv/{uid}")
 //    @ResponseBody
 	public String checkCv(@PathVariable("uid")String uid, Model model){
-		TbCvs cv=cvServiceImpl.selCvByUid(Long.parseLong(uid));
+		String[] post_cv = uid.split(",");
+		TbCvs cv=cvServiceImpl.selCvByUid(Long.parseLong(post_cv[0]));
         List<TbCvsPx> tbCvsPxList =cvServiceImpl.selCvsPxByUid(cv.getCvid());
 		List<TbCvsJy> tbCvsJyList =cvServiceImpl.selCvsJyByUid(cv.getCvid());
 		List<TbCvsGz> tbCvsGzList =cvServiceImpl.selCvsGzByUid(cv.getCvid());
+
 		model.addAttribute("cv", cv);
+		model.addAttribute("post", post_cv[1]);
 		model.addAttribute("cvjy", tbCvsJyList);
 		model.addAttribute("cvgz", tbCvsGzList);
 		model.addAttribute("cvpx", tbCvsPxList);
@@ -105,7 +107,7 @@ public class CvController {
 	 * dudu
 	 * 2020年3月5日09:40:44
 	 **/
-	@RequestMapping("checkCv ")
+	@RequestMapping("checkCv")
 //    @ResponseBody
 	public String checkCv(){
 //		TbCvs cv=cvServiceImpl.selCvByUid(Long.parseLong(uid));
@@ -130,13 +132,34 @@ public class CvController {
 		}
     }
     /**
+     * 选择BPM流程处理人
+     * **/
+    @RequestMapping("bpmCLR/{str}")
+    public String bpmCLR(@PathVariable("str")String str, Model model){
+//        TbPsndoc tbPsndoc=psndocServiceImpl.selPsndocList (Long.parseLong(uid));
+		String[] post_cv = str.split(",");
+        model.addAttribute("cvid", post_cv[0]);
+		model.addAttribute("post", post_cv[1]);
+        return "page/bpm/bpmCLR";
+    }
+	/**
+	 * 人员列表
+	 * **/
+	@RequestMapping("getPsnList")
+	@ResponseBody
+
+	public ResultUtil getPsnList(Integer page, Integer limit, PsnSearch nickname){
+		return psndocServiceImpl.selPsndocList(page,limit,nickname);
+	}
+    /**
      * 触发BPM流程
      * **/
-	@RequestMapping("subCv/{zwid}")
+	@RequestMapping("subBpm/{postStr}")
 	@ResponseBody
-	public ResultUtil subCv(@PathVariable("zwid")String zwid, Model model){
+	public ResultUtil subBpm(@PathVariable("postStr")String postStr, Model model){
+
 		TurnBPM turnBPM = new TurnBPM();
-		int result =  turnBPM.get(zwid);
+		int result =  turnBPM.get(postStr);
 		if(result == 0){
 			return ResultUtil.ok();
 		}

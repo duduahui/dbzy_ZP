@@ -100,9 +100,9 @@ public class CvServiceImpl implements CvService {
 		TbPosts tbPosts = tbPostsMapper.selectByPrimaryKey(Long.parseLong(search.getPostid()));
 		Cvs = tbPostsCvsMapper.getTbCvs(search.getPostid());//散装查询
 		List<TbCvsList> cvsLists = new ArrayList<TbCvsList>();
-
 		for (TbCvs cv:Cvs
 			 ) { TbCvsList cvsList = new TbCvsList();
+		    cvsList.setZwid(search.getPostid());//职位id
 			cvsList.setUid(cv.getUid());//序号
 			cvsList.setCvid(cv.getCvid());//简历编号
 			cvsList.setNickname(cv.getNickname());//姓名

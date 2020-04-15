@@ -1,9 +1,6 @@
 package com.irs.service;
 
 import com.irs.pojo.TbDepts;
-import com.irs.util.ResultUtil;
-
-import java.util.Date;
 import java.util.List;
 
 public interface DeptService {

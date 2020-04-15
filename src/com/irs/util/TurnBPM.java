@@ -41,8 +41,10 @@ public class TurnBPM {
                 e.printStackTrace();
             }
         }
-        public int get(String deptid){
-            say(deptid);
+        public int get(String str){
+
+            String[] uid_value = str.split(",");
+            say(uid_value[0]);
             return 0;
         }
 //        public static void main(String args[]){

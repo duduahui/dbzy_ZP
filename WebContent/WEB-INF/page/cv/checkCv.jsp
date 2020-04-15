@@ -50,6 +50,7 @@
 	<form class="layui-form" style="width: 80%;" id="auf">
 		<!-- 简历id -->
 	<input type="hidden" name="uid" value="${cv.uid }" id="uid"/>
+	<input type="hidden" name="post" value="${post }" id="post"/>
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
 	<script type="text/javascript" src="${ctx }/page/cv/checkCv.js"></script>
 <%--	<header class="header"></header>--%>

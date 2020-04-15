@@ -103,6 +103,10 @@ var form;
 							{
 								field : 'nickname',
 								title : '姓名'
+							},{
+								field : 'zwid',
+								title : '职位编号'
+
 							},
 							{
 								field : 'zname',
@@ -218,7 +222,7 @@ var form;
 						var index = layui.layer.open({
 							title : "简历详情",
 							type : 2,
-							content : ctx + "/cv/checkCv/"+ data.uid,
+							content : ctx + "/cv/checkCv/"+ data.uid+","+data.zwid,
 							success : function(layero, index) {
 
 							}
