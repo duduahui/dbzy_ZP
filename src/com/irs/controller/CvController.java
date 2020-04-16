@@ -161,7 +161,15 @@ public class CvController {
 		TurnBPM turnBPM = new TurnBPM();
 		int result =  turnBPM.get(postStr);
 		if(result == 0){
-			return ResultUtil.ok();
+            try{
+                String[] uid_value = postStr.split(",");
+                TbCvs tbCvs = cvServiceImpl.selCvByUid(Long.parseLong(uid_value[0]));
+                tbCvs.setCvstatus("5");
+                cvServiceImpl.editCvService(tbCvs);
+                return ResultUtil.ok();
+            }catch (Exception e){
+
+            }
 		}
 		return ResultUtil.error("提交失败！");
 	}
@@ -172,14 +180,14 @@ public class CvController {
 	@ResponseBody
 	public ResultUtil updCvs(@PathVariable("uid")String uid){
 		String[] uid_value = uid.split(",");
+        int result = 0;
 		try{
 			TbCvs tbCvs = cvServiceImpl.selCvByUid(Long.parseLong(uid_value[0]));
 			tbCvs.setCvstatus(uid_value[1]);
 			cvServiceImpl.editCvService(tbCvs);
 		}catch (Exception e){
-
+            result = 1;
 	}
-		int result = 0;
 		if(result == 0){
 			return ResultUtil.ok();
 		}

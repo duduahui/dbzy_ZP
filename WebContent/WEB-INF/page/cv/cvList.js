@@ -157,7 +157,8 @@ var form;
 							// 隐藏列
 							$(".layui-table-box").find("[data-field='uid']").css("display","none");
 							$(".layui-table-box").find("[data-field='cvid']").css("display","none");
-							// $(".layui-table-box").find("[data-field='cvstatus']").css("display","none");
+                            $(".layui-table-box").find("[data-field='zwid']").css("display","none");
+                            // $(".layui-table-box").find("[data-field='cvstatus']").css("display","none");
 						}
 					});
 
