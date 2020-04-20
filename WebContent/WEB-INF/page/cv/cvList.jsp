@@ -83,37 +83,19 @@
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
 	<script type="text/html" id="barEdit">
   		<a class="layui-btn layui-btn-xs" lay-event="check">查看</a>
-<%--  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
 		<a class="layui-btn layui-btn-xs" lay-event="turn">转发</a>
-	</script>
-	<script type="text/html" id="sexTpl">
- 		 {{#  if(d.sex === '0'){ }}
-   		 <span style="color: #F581B1;">女</span>
-  		{{#  } else if(d.sex === '1'){ }}
-   		 	男
-		{{#  } else{ }}
-   		 	保密
-  		{{#  } }}
-	</script>
-	<script type="text/html" id="statusTpl">
- 		 {{#  if(d.status === '0'){ }}
-   		 <span style="color: #FFB800;">未激活</span>
-  		{{#  } else if(d.status === '1'){ }}
-			<span style="color: #01AAED;">正常</span>
-		{{#  } else{ }}
-   		 	<span style="color: #FF5722;">禁用</span>
-  		{{#  } }}
 	</script>
 <script id="switchTpl" type="text/html">
 	<div class="layui-form-item">
-		<input type="radio" name="{{d.uid}}"  value="2" lay-skin="switch"   lay-filter="jlcz"
+		<input type="radio" name="{{d.uid}}" id="{{d.zwid}}" value="1" lay-skin="switch"   lay-filter="jlcz"
+			   title="待定" {{d.cvstatus == 1 ? 'checked':''}}>
+		<input type="radio" name="{{d.uid}}" id="{{d.zwid}}" value="2" lay-skin="switch"   lay-filter="jlcz"
 			   title="适合" {{d.cvstatus == 2 ? 'checked':''}}>
-		<input type="radio" name="{{d.uid}}" value="3" lay-skin="switch"   lay-filter="jlcz"
+		<input type="radio" name="{{d.uid}}" id="{{d.zwid}}" value="3" lay-skin="switch"   lay-filter="jlcz"
 			   title="不适合" {{d.cvstatus == 3 ? 'checked':''}}>
-		<input type="radio" name="{{d.uid}}" value="4" lay-skin="switch"  lay-filter="jlcz"
+		<input type="radio" name="{{d.uid}}" id="{{d.zwid}}" value="4" lay-skin="switch"  lay-filter="jlcz"
 			   title="转人才库" {{d.cvstatus == 4 ? 'checked':''}}>
 	</div>
-
 </script>
 <script type="text/javascript" src="${ctx }/page/cv/cvList.js"></script>
 </body>

@@ -173,9 +173,10 @@ var form;
 				//监听状态操作
 
 				form.on('radio(jlcz)', function (data) {
-					// alert(this.name+"=="+data.value);
+					console.log(data)
+					// alert(this.id+"=="+this.name+"=="+data.value );
 					$.ajax({
-						url : ctx + "/cv/updCvs/"+ this.name+","
+						url : ctx + "/cv/updCvs/"+ this.id+","+this.name+","
 							+ data.value,
 						type : "get",
 						success : function(d) {

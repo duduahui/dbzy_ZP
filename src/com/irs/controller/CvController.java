@@ -63,13 +63,8 @@ public class CvController {
 
 	public ResultUtil getCvList(Integer page, Integer limit, CvSearch search,@PathVariable("uid")String uid){
 
-		if(uid==null&&"".equals(uid)){
-			//不是由职位跳转过来
-			return cvServiceImpl.selCvs(page,limit,search);
-		}else{
 			search.setPostid(uid);
-			return cvServiceImpl.selPostCvs(page,limit,search);
-		}
+		return cvServiceImpl.selCvs(page,limit,search);
 	}
 
 	@RequestMapping("cvList/{uid}")
@@ -163,9 +158,9 @@ public class CvController {
 		if(result == 0){
             try{
                 String[] uid_value = postStr.split(",");
-                TbCvs tbCvs = cvServiceImpl.selCvByUid(Long.parseLong(uid_value[0]));
-                tbCvs.setCvstatus("5");
-                cvServiceImpl.editCvService(tbCvs);
+				TbPostsCvs tbPostsCvs = cvServiceImpl.selPostCvService(uid_value[1],uid_value[0]);
+				tbPostsCvs.setCvstatus("5");
+				cvServiceImpl.updPostCvService(tbPostsCvs);
                 return ResultUtil.ok();
             }catch (Exception e){
 
@@ -174,7 +169,7 @@ public class CvController {
 		return ResultUtil.error("提交失败！");
 	}
 	/**
-	 * 更新简历状态
+	 * 更新职位简历关系表状态
 	 * **/
 	@RequestMapping("updCvs/{uid}")
 	@ResponseBody
@@ -182,9 +177,9 @@ public class CvController {
 		String[] uid_value = uid.split(",");
         int result = 0;
 		try{
-			TbCvs tbCvs = cvServiceImpl.selCvByUid(Long.parseLong(uid_value[0]));
-			tbCvs.setCvstatus(uid_value[1]);
-			cvServiceImpl.editCvService(tbCvs);
+			TbPostsCvs tbPostsCvs = cvServiceImpl.selPostCvService(uid_value[0],uid_value[1]);
+			tbPostsCvs.setCvstatus(uid_value[2]);
+			cvServiceImpl.updPostCvService(tbPostsCvs);
 		}catch (Exception e){
             result = 1;
 	}
@@ -193,122 +188,4 @@ public class CvController {
 		}
 		return ResultUtil.error("提交失败！");
 	}
-//	@RequestMapping("addUser")
-//	@RequiresPermissions("user:user:save")
-//	public String userAdd(){
-//		return "page/user/addUser";
-//	}
-//	@RequestMapping("addPost")
-//	@RequiresPermissions("post:post:save")
-//	public String postAdd(){
-//		return "page/post/addPost";
-//	}
-
-//	@RequestMapping("checkUserByEmail")
-//	@ResponseBody
-//	public ResultUtil checkUserEmail(String eMail,Long uid){
-//		TbUsers user = postServiceImpl.selUserByEmail(eMail,uid);
-//		if(user!=null){
-//			return new ResultUtil(500,"邮箱已存在，请重新填写！");
-//		}
-//		return new ResultUtil(0);
-//	}
-//	
-//	@RequestMapping("checkUserByNickname/{nickname}")
-//	@ResponseBody
-//	public ResultUtil checkNickname(@PathVariable("nickname")String nickname,Long uid){
-//		TbUsers user = postServiceImpl.selUserByNickname(nickname,uid);
-//		if(user!=null){
-//			return new ResultUtil(501,"昵称已存在，请重新填写！");
-//		}
-//		return new ResultUtil(0);
-//	}
-
-//	/**
-//	 * 添加职位
-//	 * @param post
-//	 * @return
-//	 */
-//	@SysLog(value="添加职位")
-//	@RequestMapping("insPost")
-//	@RequiresPermissions("post:post:save")
-//	@ResponseBody
-//	public ResultUtil insPost(TbPosts post){
-//		//防止浏览器提交
-//		String u1 = "";
-//		try {
-//			postServiceImpl.insPostService(post);
-//			return ResultUtil.ok();
-//		} catch (Exception e) {
-//			//e.printStackTrace();
-//			return new ResultUtil(502,"职位添加错误，请检查！");
-//		}
-//	}
-
-
-
-
-//	/**
-//	 * 批量删除用户
-//	 * @param userStr
-//	 * @return
-//	 */
-//	@SysLog(value="批量删除用户")
-//	@RequestMapping("delUsers/{userStr}")
-//	@RequiresPermissions("user:user:delete")
-//	@ResponseBody
-//	public ResultUtil delUsers(@PathVariable("userStr")String userStr){
-//		try {
-//			postServiceImpl.delUsersService(userStr);
-//			return ResultUtil.ok();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return ResultUtil.error();
-//		}
-//	}
-//	
-//	/**
-//	 * 根据ID删除用户
-//	 * @param uid
-//	 * @return
-//	 */
-//	@SysLog(value="根据ID删除用户")
-//	@RequestMapping("delUserByUid/{uid}")
-//	@RequiresPermissions("user:user:delete")
-//	@ResponseBody
-//	public ResultUtil delUserByUid(@PathVariable("uid")String uid){
-//		try {
-//			postServiceImpl.delUserByUid(uid);;
-//			return ResultUtil.ok();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return ResultUtil.error();
-//		}
-//	}
-//	
-//	@RequestMapping("editUser/{uid}")
-//	@RequiresPermissions("user:user:save")
-//	public String editUser(@PathVariable("uid")String uid,Model model){
-//		TbUsers user=postServiceImpl.selUserByUid(Long.parseLong(uid));
-//		model.addAttribute("user", user);
-//		return "page/user/editUser";
-//	}
-//	
-//	/**
-//	 * 更新简历状态
-//	 * @param cv
-//	 * @return
-//	 */
-//	@SysLog(value="更新简历状态")
-//	@RequestMapping("updCvs")
-//	@ResponseBody
-//	public ResultUtil updCvs(TbUsers user){
-//		try {
-//			postServiceImpl.updUserService(user);
-//			return ResultUtil.ok();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return ResultUtil.error();
-//		}
-//	}
 }

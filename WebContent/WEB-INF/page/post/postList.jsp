@@ -56,17 +56,16 @@
 		</div>
 		<a class="layui-btn search_btn" lay-submit="" data-type="search"
 		   lay-filter="search">查询</a>
-		<shiro:hasPermission name="user:user:save">
-			<div class="layui-inline">
-				<a class="layui-btn layui-btn-normal userAdd_btn">发布职位</a>
-			</div>
-		</shiro:hasPermission>
-		<shiro:hasPermission name="user:user:delete">
-			<div class="layui-inline">
-				<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-			</div>
-		</shiro:hasPermission>
 		<div class="layui-inline">（支持模糊查询）</div>
+		<div class="layui-inline">
+			<a class="layui-btn layui-btn-normal postAdd_btn"> 新增</a>
+		</div>
+		<div class="layui-inline">
+		<a class="layui-btn layui-btn-normal postSub_btn">发布</a>
+		</div>
+		<div class="layui-inline">
+			<a class="layui-btn layui-btn-danger postUnder_btn">下架</a>
+		</div>
 	</div>
 	</blockquote>
 </form>
@@ -76,20 +75,11 @@
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
 	<script type="text/html" id="barEdit">
 		<a class="layui-btn layui-btn layui-btn-xs" lay-event="check">查看简历</a>
-		<a class="layui-btn layui-btn layui-btn-xs" lay-event="submit">发布</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="under">下架</a>
+<%--		<a class="layui-btn layui-btn layui-btn-xs" lay-event="submit">发布</a>--%>
+<%--		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="under">下架</a>--%>
 		<a class="layui-btn layui-btn layui-btn-xs" lay-event="edit">查看</a>
 <%--  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
 <%--		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
-	</script>
-	<script type="text/html" id="sexTpl">
- 		 {{#  if(d.sex === '0'){ }}
-   		 <span style="color: #F581B1;">女</span>
-  		{{#  } else if(d.sex === '1'){ }}
-   		 	男
-		{{#  } else{ }}
-   		 	保密
-  		{{#  } }}
 	</script>
 	<script type="text/html" id="statusTpl">
  		 {{#  if(d.status === '0'){ }}

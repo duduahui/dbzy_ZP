@@ -274,8 +274,8 @@ public class AdminServiceImpl implements AdminService {
 			}
 		}
 		//默认拥有首页菜单权限
-		list.get(0).setDisabled(true);
-		list.get(0).setChecked(true);
+//		list.get(0).setDisabled(true);
+//		list.get(0).setChecked(true);
 		return list;
 	}
 

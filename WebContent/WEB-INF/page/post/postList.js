@@ -162,7 +162,7 @@ var form;
 						else{
 							layer.confirm('是否发布此职位？', function(index) {
 								$.ajax({
-									url : ctx + '/post/underPostByUid/'
+									url : ctx + '/post/subPostByUid/'
 										+ data.uid,
 									type : "get",
 									success : function(d) {
@@ -221,36 +221,38 @@ var form;
 							});
 						}
 					}else if (obj.event === 'edit') {
-						if(data.zstatus === '下架'){
-							layer
-								.msg(
-									"该职位已下架，不允许修改！",
-									{
-										icon : 5
-									});
-						}else if(data.zstatus === '发布' ){
-							layer
-								.msg(
-									"该职位已发布，不允许修改！",
-									{
-										icon : 5
-									});
-						}else{
-							var index = layui.layer.open({
-								// layer.open({
-								type : 2,
-								title : "修改职位",
-								content : ctx + "/post/editPost/"
-									+ data.uid, //这里content是一个普通的String
-								success : function(layero, index) {
+						// if(data.zstatus === '下架'){
+						// 	layer
+						// 		.msg(
+						// 			"该职位已下架，不允许修改！",
+						// 			{
+						// 				icon : 5
+						// 			});
+						// }else if(data.zstatus === '发布' ){
+						// 	layer
+						// 		.msg(
+						// 			"该职位已发布，不允许修改！",
+						// 			{
+						// 				icon : 5
+						// 			});
+						// }else{
+						//
+						// }
+						var index = layui.layer.open({
+							// layer.open({
+							type : 2,
+							title : "修改职位",
+							content : ctx + "/post/editPost/"
+								+ data.uid, //这里content是一个普通的String
+							success : function(layero, index) {
 
-								}
-							})
-							//改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-							$(window).resize(function() {
-								layui.layer.full(index);
-							})
-							layui.layer.full(index);}
+							}
+						})
+						//改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+						$(window).resize(function() {
+							layui.layer.full(index);
+						})
+						layui.layer.full(index);
 					}
 					else if (obj.event === 'check') {
 						var index = layui.layer.open({
@@ -276,13 +278,12 @@ var form;
 					var type = $(this).data('type');
 					active[type] ? active[type].call(this) : '';
 				})
-
-				//简历列表
-				$(".userAdd_btn").click(function() {
+				//增加职位
+				$(".postAdd_btn").click(function() {
 					var index = layui.layer.open({
-						title : "简历列表",
+						title : "发布职位",
 						type : 2,
-						content : ctx + "/cv/cvList",
+						content : ctx + "/post/addPost",
 						success : function(layero, index) {
 
 						}
@@ -294,10 +295,118 @@ var form;
 					layui.layer.full(index);
 				})
 
+				//发布
+				$(".postSub_btn").click(function() {
+					var checkStatus = table
+						.checkStatus('postList'), data = checkStatus.data, postUid = '', postStu = '';
+					if (data.length > 0) {
+						$.each(data, function(n,
+											  value) {
+							postUid += value.uid
+								+ ',';
+							postStu += value.zstatus
+								+ ',';
+						});
+						postUid = postUid
+							.substring(
+								0,
+								postUid.length - 1);
+						if (postStu.indexOf('发布')!=-1) {
+							layer
+								.msg(
+									"选中职位已发布！",
+									{
+										icon: 5
+									});
+						}
+						else {
+							layer.confirm('是否发布选中职位？', function (index) {
+								$.ajax({
+									url: ctx + '/post/subPostByUid/'
+										+ postUid,
+									type: "get",
+									success: function (d) {
+										if (d.code == 0) {
+											// obj.del();
+											location.reload();
+											layer
+												.msg(
+													"发布成功！",
+													{
+														icon: 1
+													});
+										} else {
+											layer.msg(data.msg, {
+												icon: 5
+											});
+										}
+									}
+								})
+								layer.close(index);
+							});
+						}
+					}else {
+						layer.msg("请选择需要发布的职位");
+					}
+				});
+				//下架
+				$(".postUnder_btn").click(function() {
+					var checkStatus = table
+						.checkStatus('postList'), data = checkStatus.data, postUid = '',postStu = '';
+					if (data.length > 0) {
+						$.each(data, function(n,
+											  value) {
+							postUid += value.uid
+								+ ',';
+							postStu += value.zstatus
+								+ ',';
+						});
+						postUid = postUid
+							.substring(
+								0,
+								postUid.length - 1);
+						if (postStu.indexOf('下架')!=-1) {
+							layer
+								.msg(
+									"选中职位已下架！",
+									{
+										icon: 5
+									});
+						}
+						else {
+							layer.confirm('是否下架选中职位？', function (index) {
+								$.ajax({
+									url: ctx + '/post/underPostByUid/'
+										+ postUid,
+									type: "get",
+									success: function (d) {
+										if (d.code == 0) {
+											// obj.del();
+											location.reload();
+											layer
+												.msg(
+													"下架成功！",
+													{
+														icon: 1
+													});
+										} else {
+											layer.msg(data.msg, {
+												icon: 5
+											});
+										}
+									}
+								})
+								layer.close(index);
+							});
+						}
+					}else {
+						layer.msg("请选择需要下架的职位");
+					}
+
+
+				});
 				//批量删除
-				$(".batchDel")
-					.click(
-						function() {
+				$(".batchDel").click(function() {
 							var checkStatus = table
 								.checkStatus('userList'), data = checkStatus.data, userStr = '';
 							if (data.length > 0) {

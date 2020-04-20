@@ -79,7 +79,7 @@
 				</ul>
 				<div class="layui-tab-content clildFrame">
 					<div class="layui-tab-item layui-show">
-						<iframe src="${ctx }/sys/main"></iframe>
+<%--						<iframe src="${ctx }/sys/main"></iframe>--%>
 					</div>
 				</div>
 			</div>

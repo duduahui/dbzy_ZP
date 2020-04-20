@@ -8,9 +8,8 @@ import com.irs.mapper.src.cv.TbCvsGzMapper;
 import com.irs.mapper.src.cv.TbCvsJyMapper;
 import com.irs.mapper.src.cv.TbCvsPxMapper;
 import com.irs.pojo.*;
-import com.irs.pojo.TbCvsExample.Criteria;
+import com.irs.pojo.TbPostsCvsExample.Criteria;
 import com.irs.pojo.cv.TbCvsGz;
-import com.irs.pojo.cv.TbCvsGzExample;
 import com.irs.pojo.cv.TbCvsJy;
 import com.irs.pojo.cv.TbCvsPx;
 import com.irs.service.CvService;
@@ -78,16 +77,34 @@ public class CvServiceImpl implements CvService {
 	@Override
 	public ResultUtil selCvs(Integer page, Integer limit, CvSearch search) {
 		ResultUtil resultUtil = new ResultUtil();
-		List<TbCvs> Cvs = new ArrayList<TbCvs>();
-		TbCvsExample example=new TbCvsExample();
-		Criteria criteria = example.createCriteria();
-		example.setOrderByClause("createtime DESC");
-		if(search.getCvstatus()!=null&&!"".equals(search.getCvstatus())){
-			//注意：模糊查询需要进行拼接”%“  如下，不进行拼接是不能完成查询的哦。
-			criteria.andCvstatusEqualTo(search.getCvstatus());
+		TbPostsCvsExample tbPostsCvsExample = new TbPostsCvsExample();
+		Criteria criteria = tbPostsCvsExample.createCriteria();
+		String a = search.getPostid();
+		if(!"".equals(search.getPostid())&&(search.getPostid())!=null){
+			criteria.andPostcodeEqualTo(search.getPostid());
 		}
-		Cvs = tbCvsMapper.selectByExample(example);
-		PageInfo<TbCvs> pageInfo = new PageInfo<TbCvs>(Cvs);
+		tbPostsCvsExample.setOrderByClause("createtime DESC");
+		List<TbPostsCvs> tbPostsCvs = tbPostsCvsMapper.selectByExample(tbPostsCvsExample);
+		List<TbCvsList> cvsLists = new ArrayList<TbCvsList>();
+		for (TbPostsCvs pc:tbPostsCvs){
+			TbPosts tbPosts = tbPostsMapper.selectByPrimaryKey(Long.parseLong(pc.getPostcode()));
+			TbCvs cv = tbCvsMapper.selectByPrimaryKey(Long.parseLong(pc.getCvcode()));
+			TbCvsList cvsList = new TbCvsList();
+			cvsList.setZwid(tbPosts.getUid()+"");//职位id
+			cvsList.setUid(cv.getUid());//序号
+			cvsList.setCvid(cv.getCvid());//简历编号
+			cvsList.setNickname(cv.getNickname());//姓名
+			cvsList.setZname(tbPosts.getZname());//应聘职位
+			cvsList.setGzdd(tbPosts.getGzdd());//工作地点
+			cvsList.setAge(new GetAge().evaluate(cv.getSfz()));//计算年龄
+			cvsList.setXueli(cv.getXueli());//学历
+			cvsList.setByyx(cv.getByyx());//毕业院校
+			cvsList.setLxgznx("3");//连续工作年限
+			cvsList.setCreatetime(cv.getCreatetime());//投递时间
+			cvsList.setCvstatus(pc.getCvstatus());//简历状态
+			cvsLists.add(cvsList);
+		}
+		PageInfo<TbCvsList> pageInfo = new PageInfo<TbCvsList>(cvsLists);
 		resultUtil.setCode(0);
 		resultUtil.setCount(pageInfo.getTotal());
 		resultUtil.setData(pageInfo.getList());
@@ -96,9 +113,14 @@ public class CvServiceImpl implements CvService {
 	@Override
 	public ResultUtil selPostCvs(Integer page, Integer limit,CvSearch search) {
 		ResultUtil resultUtil = new ResultUtil();
-		List<TbCvs> Cvs = new ArrayList<TbCvs>();
 		TbPosts tbPosts = tbPostsMapper.selectByPrimaryKey(Long.parseLong(search.getPostid()));
-		Cvs = tbPostsCvsMapper.getTbCvs(search.getPostid());//散装查询
+		List<TbCvs>  Cvs = tbCvsMapper.selectByExample(new TbCvsExample());
+//		getTbCvs(search.getPostid());//散装查询
+		TbPostsCvsKey sKey = new TbPostsCvsKey();
+		sKey.setCvcode(search.getPostid());
+		sKey.setCvcode(search.getUserid());
+		TbPostsCvs tbPostsCvs = tbPostsCvsMapper.selectByPrimaryKey(sKey);
+
 		List<TbCvsList> cvsLists = new ArrayList<TbCvsList>();
 		for (TbCvs cv:Cvs
 			 ) { TbCvsList cvsList = new TbCvsList();
@@ -113,7 +135,7 @@ public class CvServiceImpl implements CvService {
 			cvsList.setByyx(cv.getByyx());//毕业院校
 			cvsList.setLxgznx("3");//连续工作年限
 			cvsList.setCreatetime(cv.getCreatetime());//投递时间
-			cvsList.setCvstatus(cv.getCvstatus());//简历状态
+			cvsList.setCvstatus(tbPostsCvs.getCvstatus());//简历状态
 			cvsLists.add(cvsList);
 		}
 
@@ -180,14 +202,20 @@ public class CvServiceImpl implements CvService {
 	public List<TbCvsPx> selCvsPxByUid(String cvid){
 		return tbCvsMapper.selectByPxCvid(cvid);
 	}
-//
-//	@Override
-//	public void updCvService(TbCvs Cv) {
-//		TbCvs u = tbCvsMapper.selectByPrimaryKey(Cv.getUid());
-//		Cv.setPassword(u.getPassword());
-//		Cv.seteCode(u.geteCode());
-//		Cv.setCreateTime(u.getCreateTime());
-//		tbCvsMapper.updateByPrimaryKey(Cv);
-//	}
 
+
+
+	@Override
+	public TbPostsCvs selPostCvService(String postid,String cvid) {
+
+		TbPostsCvsKey sKey = new TbPostsCvsKey();
+		sKey.setPostcode(postid);
+		sKey.setCvcode(cvid);
+		return tbPostsCvsMapper.selectByPrimaryKey(sKey);
+	}
+
+	@Override
+	public void updPostCvService(TbPostsCvs tbPostsCvs) {
+		tbPostsCvsMapper.updateByPrimaryKeySelective(tbPostsCvs);
+	}
 }

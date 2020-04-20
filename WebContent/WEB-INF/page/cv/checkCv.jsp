@@ -261,7 +261,7 @@
 		<ul>
 			<li>
 <%--				<a href="#" target="_blank" style="width: 100px">启动BPM流程</a>--%>
-                <button class="layui-btn" lay-submit="" lay-filter="turnBPM">启动BPM流程</button>
+                <button class="layui-btn" lay-submit="" lay-filter="turnBPM">安排面试</button>
 			</li>
 <%--			<li>--%>
 <%--                <button class="layui-btn" lay-submit="" lay-filter="downLoad">下载</button>--%>
