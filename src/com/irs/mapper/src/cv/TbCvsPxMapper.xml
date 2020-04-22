@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.src.cv.TbCvsPxMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.cv.TbCvsPx">
+    <id column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="cvid" jdbcType="VARCHAR" property="cvid" />
+    <result column="startdate" jdbcType="DATE" property="startdate" />
+    <result column="enddate" jdbcType="DATE" property="enddate" />
+    <result column="pxjg" jdbcType="VARCHAR" property="pxjg" />
+    <result column="pxkc" jdbcType="VARCHAR" property="pxkc" />
+    <result column="pxzs" jdbcType="VARCHAR" property="pxzs" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="column1" jdbcType="VARCHAR" property="column1" />
+    <result column="column2" jdbcType="VARCHAR" property="column2" />
+    <result column="column3" jdbcType="VARCHAR" property="column3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    `uid`, cvid, startdate, enddate, pxjg, pxkc, pxzs, userid, createtime, column1, column2, 
+    column3
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.cv.TbCvsPxExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_cvs_px
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_cvs_px
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_cvs_px
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.cv.TbCvsPxExample">
+    delete from tb_cvs_px
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.cv.TbCvsPx" useGeneratedKeys="true">
+    insert into tb_cvs_px (cvid, startdate, enddate, 
+      pxjg, pxkc, pxzs, userid, 
+      createtime, column1, column2, 
+      column3)
+    values (#{cvid,jdbcType=VARCHAR}, #{startdate,jdbcType=DATE}, #{enddate,jdbcType=DATE}, 
+      #{pxjg,jdbcType=VARCHAR}, #{pxkc,jdbcType=VARCHAR}, #{pxzs,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{column1,jdbcType=VARCHAR}, #{column2,jdbcType=VARCHAR}, 
+      #{column3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.cv.TbCvsPx" useGeneratedKeys="true">
+    insert into tb_cvs_px
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cvid != null">
+        cvid,
+      </if>
+      <if test="startdate != null">
+        startdate,
+      </if>
+      <if test="enddate != null">
+        enddate,
+      </if>
+      <if test="pxjg != null">
+        pxjg,
+      </if>
+      <if test="pxkc != null">
+        pxkc,
+      </if>
+      <if test="pxzs != null">
+        pxzs,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="column1 != null">
+        column1,
+      </if>
+      <if test="column2 != null">
+        column2,
+      </if>
+      <if test="column3 != null">
+        column3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cvid != null">
+        #{cvid,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=DATE},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=DATE},
+      </if>
+      <if test="pxjg != null">
+        #{pxjg,jdbcType=VARCHAR},
+      </if>
+      <if test="pxkc != null">
+        #{pxkc,jdbcType=VARCHAR},
+      </if>
+      <if test="pxzs != null">
+        #{pxzs,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="column1 != null">
+        #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        #{column3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.cv.TbCvsPxExample" resultType="java.lang.Long">
+    select count(*) from tb_cvs_px
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_cvs_px
+    <set>
+      <if test="record.uid != null">
+        `uid` = #{record.uid,jdbcType=BIGINT},
+      </if>
+      <if test="record.cvid != null">
+        cvid = #{record.cvid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startdate != null">
+        startdate = #{record.startdate,jdbcType=DATE},
+      </if>
+      <if test="record.enddate != null">
+        enddate = #{record.enddate,jdbcType=DATE},
+      </if>
+      <if test="record.pxjg != null">
+        pxjg = #{record.pxjg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pxkc != null">
+        pxkc = #{record.pxkc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pxzs != null">
+        pxzs = #{record.pxzs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.column1 != null">
+        column1 = #{record.column1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.column2 != null">
+        column2 = #{record.column2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.column3 != null">
+        column3 = #{record.column3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_cvs_px
+    set `uid` = #{record.uid,jdbcType=BIGINT},
+      cvid = #{record.cvid,jdbcType=VARCHAR},
+      startdate = #{record.startdate,jdbcType=DATE},
+      enddate = #{record.enddate,jdbcType=DATE},
+      pxjg = #{record.pxjg,jdbcType=VARCHAR},
+      pxkc = #{record.pxkc,jdbcType=VARCHAR},
+      pxzs = #{record.pxzs,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      column1 = #{record.column1,jdbcType=VARCHAR},
+      column2 = #{record.column2,jdbcType=VARCHAR},
+      column3 = #{record.column3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.cv.TbCvsPx">
+    update tb_cvs_px
+    <set>
+      <if test="cvid != null">
+        cvid = #{cvid,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        startdate = #{startdate,jdbcType=DATE},
+      </if>
+      <if test="enddate != null">
+        enddate = #{enddate,jdbcType=DATE},
+      </if>
+      <if test="pxjg != null">
+        pxjg = #{pxjg,jdbcType=VARCHAR},
+      </if>
+      <if test="pxkc != null">
+        pxkc = #{pxkc,jdbcType=VARCHAR},
+      </if>
+      <if test="pxzs != null">
+        pxzs = #{pxzs,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.cv.TbCvsPx">
+    update tb_cvs_px
+    set cvid = #{cvid,jdbcType=VARCHAR},
+      startdate = #{startdate,jdbcType=DATE},
+      enddate = #{enddate,jdbcType=DATE},
+      pxjg = #{pxjg,jdbcType=VARCHAR},
+      pxkc = #{pxkc,jdbcType=VARCHAR},
+      pxzs = #{pxzs,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      column1 = #{column1,jdbcType=VARCHAR},
+      column2 = #{column2,jdbcType=VARCHAR},
+      column3 = #{column3,jdbcType=VARCHAR}
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </update>
+</mapper>

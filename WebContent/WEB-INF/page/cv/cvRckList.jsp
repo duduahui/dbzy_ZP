@@ -31,26 +31,6 @@
 <form class="layui-form">
 	<input type="hidden" name="zwid" value="${post.uid}" id="zwid"/>
 	<blockquote class="layui-elem-quote news_search">
-<%--	<div>--%>
-<%--		<div class="layui-inline">--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<input type="text" id="nickname" value="" placeholder="请输入姓名"--%>
-<%--					   class="layui-input search_input">--%>
-<%--			</div>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<input type="text" id="zwid" value="" placeholder="请输入职位编号"--%>
-<%--					   class="layui-input search_input">--%>
-<%--			</div>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<input type="text" id="zpgw" value="" placeholder="请输入招聘岗位"--%>
-<%--					   class="layui-input search_input">--%>
-<%--			</div>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<input type="text" id="rztj" value="" placeholder="请输入入职条件"--%>
-<%--					   class="layui-input search_input">--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--	</div>--%>
 	<div style="margin-top: 1%">
 		<div class="layui-inline">
 			<input type="text" id="createTimeStart"
@@ -63,8 +43,6 @@
 		</div>
 		<a class="layui-btn search_btn" lay-submit="" data-type="search"
 		   lay-filter="search">查询简历</a>
-		<a class="layui-btn search_btn" lay-submit="" data-type="search"
-		   lay-filter="search">安排面试</a>
 		<shiro:hasPermission name="user:user:save">
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-normal userAdd_btn">发布职位</a>
@@ -75,7 +53,7 @@
 				<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
 			</div>
 		</shiro:hasPermission>
-<%--		<div class="layui-inline">（支持模糊查询）</div>--%>
+		<div class="layui-inline">（支持模糊查询）</div>
 	</div>
 	</blockquote>
 </form>
@@ -85,20 +63,22 @@
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
 	<script type="text/html" id="barEdit">
   		<a class="layui-btn layui-btn-xs" lay-event="check">查看</a>
+<%--  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
 		<a class="layui-btn layui-btn-xs" lay-event="turn">转发</a>
 	</script>
 <script id="switchTpl" type="text/html">
 	<div class="layui-form-item">
 		<input type="radio" name="{{d.uid}}"   value="1" lay-skin="switch"   lay-filter="jlcz"
-			   title="待定" {{d.cvstatus == 1 ? 'checked':''}} {{d.cvstatus >= 5 ? 'disabled':''}}>
+			   title="待定" {{d.cvstatus == 1 ? 'checked':''}}>
 		<input type="radio" name="{{d.uid}}"   value="2" lay-skin="switch"   lay-filter="jlcz"
-			   title="适合" {{d.cvstatus == 2 ? 'checked':''}} {{d.cvstatus >= 5 ? 'disabled':''}}>
-		<input type="radio" name="{{d.uid}}"    value="3" lay-skin="switch"   lay-filter="jlcz"
-			   title="不适合" {{d.cvstatus == 3 ? 'checked':''}} {{d.cvstatus >= 5 ? 'disabled':''}}>
+			   title="适合" {{d.cvstatus == 2 ? 'checked':''}}>
+		<input type="radio" name="{{d.uid}}"   value="3" lay-skin="switch"   lay-filter="jlcz"
+			   title="不适合" {{d.cvstatus == 3 ? 'checked':''}}>
 		<input type="radio" name="{{d.uid}}"   value="4" lay-skin="switch"  lay-filter="jlcz"
-			   title="转人才库" {{d.cvstatus == 4 ? 'checked':''}} {{d.cvstatus >= 5 ? 'disabled':''}}>
+			   title="转人才库" {{d.cvstatus == 4 ? 'checked':''}}>
 	</div>
+
 </script>
-<script type="text/javascript" src="${ctx }/page/cv/cvList.js"></script>
+<script type="text/javascript" src="${ctx }/page/cv/cvRckList.js"></script>
 </body>
 </html>

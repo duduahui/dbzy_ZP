@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>简历列表</title>
+<title>面试跟踪</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -31,26 +31,6 @@
 <form class="layui-form">
 	<input type="hidden" name="zwid" value="${post.uid}" id="zwid"/>
 	<blockquote class="layui-elem-quote news_search">
-<%--	<div>--%>
-<%--		<div class="layui-inline">--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<input type="text" id="nickname" value="" placeholder="请输入姓名"--%>
-<%--					   class="layui-input search_input">--%>
-<%--			</div>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<input type="text" id="zwid" value="" placeholder="请输入职位编号"--%>
-<%--					   class="layui-input search_input">--%>
-<%--			</div>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<input type="text" id="zpgw" value="" placeholder="请输入招聘岗位"--%>
-<%--					   class="layui-input search_input">--%>
-<%--			</div>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<input type="text" id="rztj" value="" placeholder="请输入入职条件"--%>
-<%--					   class="layui-input search_input">--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--	</div>--%>
 	<div style="margin-top: 1%">
 		<div class="layui-inline">
 			<input type="text" id="createTimeStart"
@@ -62,9 +42,7 @@
 				   name="createTimeEnd" placeholder="发布时间(结束)" value="">
 		</div>
 		<a class="layui-btn search_btn" lay-submit="" data-type="search"
-		   lay-filter="search">查询简历</a>
-		<a class="layui-btn search_btn" lay-submit="" data-type="search"
-		   lay-filter="search">安排面试</a>
+		   lay-filter="search">查询</a>
 		<shiro:hasPermission name="user:user:save">
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-normal userAdd_btn">发布职位</a>
@@ -75,30 +53,21 @@
 				<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
 			</div>
 		</shiro:hasPermission>
-<%--		<div class="layui-inline">（支持模糊查询）</div>--%>
+		<div class="layui-inline">（支持模糊查询）</div>
 	</div>
 	</blockquote>
 </form>
 	<div class="layui-form">
-		<table id="cvList" lay-filter="cvList"></table>
+		<table id="msglList" lay-filter="msglList"></table>
 	</div>
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
 	<script type="text/html" id="barEdit">
   		<a class="layui-btn layui-btn-xs" lay-event="check">查看</a>
-		<a class="layui-btn layui-btn-xs" lay-event="turn">转发</a>
 	</script>
-<script id="switchTpl" type="text/html">
-	<div class="layui-form-item">
-		<input type="radio" name="{{d.uid}}"   value="1" lay-skin="switch"   lay-filter="jlcz"
-			   title="待定" {{d.cvstatus == 1 ? 'checked':''}} {{d.cvstatus >= 5 ? 'disabled':''}}>
-		<input type="radio" name="{{d.uid}}"   value="2" lay-skin="switch"   lay-filter="jlcz"
-			   title="适合" {{d.cvstatus == 2 ? 'checked':''}} {{d.cvstatus >= 5 ? 'disabled':''}}>
-		<input type="radio" name="{{d.uid}}"    value="3" lay-skin="switch"   lay-filter="jlcz"
-			   title="不适合" {{d.cvstatus == 3 ? 'checked':''}} {{d.cvstatus >= 5 ? 'disabled':''}}>
-		<input type="radio" name="{{d.uid}}"   value="4" lay-skin="switch"  lay-filter="jlcz"
-			   title="转人才库" {{d.cvstatus == 4 ? 'checked':''}} {{d.cvstatus >= 5 ? 'disabled':''}}>
-	</div>
-</script>
-<script type="text/javascript" src="${ctx }/page/cv/cvList.js"></script>
+	<script type="text/html" id="barEdit2">
+		<a class="layui-btn layui-btn-xs" lay-event="yes">是</a>
+		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="no">否</a>
+	</script>
+<script type="text/javascript" src="${ctx }/page/msgl/msglList.js"></script>
 </body>
 </html>

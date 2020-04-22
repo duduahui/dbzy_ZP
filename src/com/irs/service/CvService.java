@@ -7,9 +7,11 @@ import com.irs.pojo.cv.TbCvsGz;
 import com.irs.pojo.cv.TbCvsJy;
 import com.irs.pojo.cv.TbCvsPx;
 import com.irs.util.ResultUtil;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface CvService {
 
 	//职位邮箱唯一性检验
@@ -34,6 +36,8 @@ public interface CvService {
 	//查询简历
 	public TbCvs selCvByUid(Long uid);
 
+	//查询简历
+	public TbCvs selCvByCvid(String cvid);
 
     //根据职位查询简历
 	public ResultUtil selPostCvs(Integer page, Integer limit,CvSearch search);

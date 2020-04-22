@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/page/include/taglib.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,13 +17,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<title>[简历详情]</title>
-<script>
-	// function loading() {
-	// 	document.getElementsByClassName('avatar')[0].style.display = 'block';
-	// 	document.getElementsByClassName('loading')[0].style.display = 'none';
-	// }
-</script>
+<title>[面试详情]</title>
 <link rel="stylesheet" href="${ctx }/layui/css/layui.css" media="all" />
 <link rel="shortcut icon" href="${ctx }/assets/images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="${ctx }/assets/css/typo.css">
@@ -52,21 +47,17 @@
 	<input type="hidden" name="uid" value="${cv.uid }" id="uid"/>
 	<input type="hidden" name="postcvid" value="${postcvid }" id="postcvid"/>
 	<script type="text/javascript" src="${ctx }/layui/layui.js"></script>
-	<script type="text/javascript" src="${ctx }/page/cv/checkCv.js"></script>
+	<script type="text/javascript" src="${ctx }/page/msgl/checkMsgl.js"></script>
 <%--	<header class="header"></header>--%>
 
 	<article class="container">
 		<section class="side" id="side">
 			<!-- 个人肖像 -->
 			<section class="me">
-<%--				<section class="portrait">--%>
-<%--				</section>--%>
-
 				<!-- 头像照片 -->
 				<img  class="portrait" src="${ctx }/assets/images/tx.jpg" >
 				<h1 class="name">${cv.nickname }</h1>
 <%--				<h4 class="info-job">应聘：${cv.nickname }</h4>--%>
-
 			</section>
 
 			<!-- 基本信息 -->
@@ -214,10 +205,6 @@
 					<li>
 						<h3>
 							<span>${TbCvsPx.pxjg}</span>
-<%--							<span class="link">--%>
-<%--                                <a href="#" target="_blank">Demo</a>--%>
-<%--                            </span>--%>
-<%--							<time>201X.X-201X.X</time>--%>
 						</h3>
 						<span><time>${TbCvsPx.column1} </time></span>
 						<span><time>至 ${TbCvsPx.column2}</time></span>
@@ -229,46 +216,57 @@
 				</ul>
 			</section>
 
-			<!-- 自我评价 -->
-<%--			<section class="work info-unit">--%>
-<%--				<h2>--%>
-<%--					<i class="fa fa-pencil" aria-hidden="true"></i>自我评价/期望</h2>--%>
-<%--				<hr/>--%>
-<%--				<p>[此处如果有一些能够量化的、且比较个性的指标会有加分，比如喜爱跑步坚持夜跑200小时或者200km等]--%>
-<%--					<span class="mark-txt">“多静多思考，反省不张扬”</span>是我给自己总结的“十字箴言”，鞭策自己做人既不能以己度人，也不以人观己，要脚踏实地做事，坚持自己的梦想和本心。</p>--%>
-<%--			</section>--%>
-<%--            <section>--%>
-<%--                <div class="layui-form-item">--%>
-<%--                    <div class="layui-input-block">--%>
-<%--                        <button class="layui-btn" lay-submit="" lay-filter="turnBPM">启动BPM流程</button>--%>
-<%--                        &lt;%&ndash;                <button class="layui-btn" lay-submit="" lay-filter="subPost">发布</button>&ndash;%&gt;--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </section>--%>
+			<section class="profile info-unit">
+				<h2>
+					<i class="fa fa-user" aria-hidden="true"></i>面试反馈</h2>
+				<hr/>
+				<ul>
+					<table border="0" cellspacing="1" cellpadding="10" align="center">
+						<tr>
+							<th width="18%"><span>面试环节</span></th>
+							<th width="14%">面试官</th>
+							<th width="26%">面试评价</th>
+							<th width="20%">面试时间</th>
+						</tr>
+
+					<c:forEach items="${pj}" var="pj" varStatus="status">
+						<tr><td>
+							<span>${pj.pjstatus }</span>
+						</td>
+							<td>
+							<span>${pj.pjname }</span>
+						</td><td>
+							<span>${pj.pjdesc }</span>
+						</td><td>
+								<span><fmt:formatDate value="${pj.pjdate}" pattern="yyyy-MM-dd" />
+							</td>
+						</tr>
+					</c:forEach>
+					</table>
+				</ul>
+			</section>
 		</section>
 
+
 	</article>
-
-
 
 	<footer class="footer">
 <%--		<p>© 2020 文档最后更新时间为--%>
 <%--			<time>2018年06月20日</time>.</p>--%>
-	</footer>
 
-	<!-- 侧栏 -->
-	<aside>
-		<ul>
-			<li>
-<%--				<a href="#" target="_blank" style="width: 100px">启动BPM流程</a>--%>
-                <button class="layui-btn" lay-submit="" lay-filter="turnBPM">安排面试</button>
-			</li>
-<%--			<li>--%>
-<%--                <button class="layui-btn" lay-submit="" lay-filter="downLoad">下载</button>--%>
-<%--            </li>--%>
-        </ul>
-	</aside>
-<%--	<script src="./assets/js/index.js"></script>--%>
+	</footer>
+		<!-- 侧栏 -->
+		<aside>
+			<ul>
+				<li>
+					<%--				<a href="#" target="_blank" style="width: 100px">启动BPM流程</a>--%>
+					<button class="layui-btn" lay-submit="" lay-filter="turnBPM">安排面试</button>
+				</li>
+				<%--			<li>--%>
+				<%--                <button class="layui-btn" lay-submit="" lay-filter="downLoad">下载</button>--%>
+				<%--            </li>--%>
+			</ul>
+		</aside>
     </form>
 </body>
 </html>

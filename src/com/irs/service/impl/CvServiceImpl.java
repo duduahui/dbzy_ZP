@@ -83,9 +83,13 @@ public class CvServiceImpl implements CvService {
 			//职位简历关系
 			criteria.andPostcodeEqualTo(search.getPostid());
 		}
-		if(!"".equals(search.getCvstatus())&&(search.getCvstatus())!=null){
+		if("4".equals(search.getCvstatus())){
 			//人才库简历状态为4
 			criteria.andCvstatusEqualTo(search.getCvstatus());
+		}
+		if("5".equals(search.getCvstatus())){
+			//面试跟踪简历状态为5
+			criteria.andCvstatusGreaterThanOrEqualTo(search.getCvstatus());
 		}
 		tbPostsCvsExample.setOrderByClause("createtime DESC");
 		List<TbPostsCvs> tbPostsCvs = tbPostsCvsMapper.selectByExample(tbPostsCvsExample);
@@ -189,6 +193,10 @@ public class CvServiceImpl implements CvService {
 	public TbCvs selCvByUid(Long uid) {
 		return tbCvsMapper.selectByPrimaryKey(uid);
 	}
+	@Override
+	public TbCvs selCvByCvid(String cvid) {
+		return tbCvsMapper.selectByCvid(cvid);
+	}
 
 	@Override
 	public List<TbCvsGz> selCvsGzByUid(String cvid){
@@ -216,4 +224,6 @@ public class CvServiceImpl implements CvService {
 	public void updPostCvService(TbPostsCvs tbPostsCvs) {
 		tbPostsCvsMapper.updateByPrimaryKeySelective(tbPostsCvs);
 	}
+
+
 }

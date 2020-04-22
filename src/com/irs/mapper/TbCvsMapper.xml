@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.TbCvsMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.TbCvs">
+    <id column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="cvid" jdbcType="VARCHAR" property="cvid" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="minzu" jdbcType="VARCHAR" property="minzu" />
+    <result column="hyzk" jdbcType="VARCHAR" property="hyzk" />
+    <result column="zzmm" jdbcType="VARCHAR" property="zzmm" />
+    <result column="xjzd" jdbcType="VARCHAR" property="xjzd" />
+    <result column="shengao" jdbcType="VARCHAR" property="shengao" />
+    <result column="sfz" jdbcType="VARCHAR" property="sfz" />
+    <result column="byyx" jdbcType="VARCHAR" property="byyx" />
+    <result column="sxzy" jdbcType="VARCHAR" property="sxzy" />
+    <result column="xueli" jdbcType="VARCHAR" property="xueli" />
+    <result column="xuewei" jdbcType="VARCHAR" property="xuewei" />
+    <result column="yysp" jdbcType="VARCHAR" property="yysp" />
+    <result column="zcdj" jdbcType="VARCHAR" property="zcdj" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="dgsj" jdbcType="VARCHAR" property="dgsj" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="cvstatus" jdbcType="VARCHAR" property="cvstatus" />
+    <result column="column1" jdbcType="VARCHAR" property="column1" />
+    <result column="column2" jdbcType="VARCHAR" property="column2" />
+    <result column="column3" jdbcType="VARCHAR" property="column3" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    `uid`, cvid, userid, nickname, sex, birthday, minzu, hyzk, zzmm, xjzd, shengao, sfz, 
+    byyx, sxzy, xueli, xuewei, yysp, zcdj, phone, dgsj, createtime, cvstatus, column1, 
+    column2, column3
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.TbCvsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_cvs
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_cvs
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_cvs
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.TbCvsExample">
+    delete from tb_cvs
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.TbCvs" useGeneratedKeys="true">
+    insert into tb_cvs (cvid, userid, nickname, 
+      sex, birthday, minzu, 
+      hyzk, zzmm, xjzd, shengao, 
+      sfz, byyx, sxzy, xueli, 
+      xuewei, yysp, zcdj, 
+      phone, dgsj, createtime, 
+      cvstatus, column1, column2, 
+      column3)
+    values (#{cvid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{minzu,jdbcType=VARCHAR}, 
+      #{hyzk,jdbcType=VARCHAR}, #{zzmm,jdbcType=VARCHAR}, #{xjzd,jdbcType=VARCHAR}, #{shengao,jdbcType=VARCHAR}, 
+      #{sfz,jdbcType=VARCHAR}, #{byyx,jdbcType=VARCHAR}, #{sxzy,jdbcType=VARCHAR}, #{xueli,jdbcType=VARCHAR}, 
+      #{xuewei,jdbcType=VARCHAR}, #{yysp,jdbcType=VARCHAR}, #{zcdj,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{dgsj,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{cvstatus,jdbcType=VARCHAR}, #{column1,jdbcType=VARCHAR}, #{column2,jdbcType=VARCHAR}, 
+      #{column3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.TbCvs" useGeneratedKeys="true">
+    insert into tb_cvs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cvid != null">
+        cvid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="minzu != null">
+        minzu,
+      </if>
+      <if test="hyzk != null">
+        hyzk,
+      </if>
+      <if test="zzmm != null">
+        zzmm,
+      </if>
+      <if test="xjzd != null">
+        xjzd,
+      </if>
+      <if test="shengao != null">
+        shengao,
+      </if>
+      <if test="sfz != null">
+        sfz,
+      </if>
+      <if test="byyx != null">
+        byyx,
+      </if>
+      <if test="sxzy != null">
+        sxzy,
+      </if>
+      <if test="xueli != null">
+        xueli,
+      </if>
+      <if test="xuewei != null">
+        xuewei,
+      </if>
+      <if test="yysp != null">
+        yysp,
+      </if>
+      <if test="zcdj != null">
+        zcdj,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="dgsj != null">
+        dgsj,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="cvstatus != null">
+        cvstatus,
+      </if>
+      <if test="column1 != null">
+        column1,
+      </if>
+      <if test="column2 != null">
+        column2,
+      </if>
+      <if test="column3 != null">
+        column3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cvid != null">
+        #{cvid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="minzu != null">
+        #{minzu,jdbcType=VARCHAR},
+      </if>
+      <if test="hyzk != null">
+        #{hyzk,jdbcType=VARCHAR},
+      </if>
+      <if test="zzmm != null">
+        #{zzmm,jdbcType=VARCHAR},
+      </if>
+      <if test="xjzd != null">
+        #{xjzd,jdbcType=VARCHAR},
+      </if>
+      <if test="shengao != null">
+        #{shengao,jdbcType=VARCHAR},
+      </if>
+      <if test="sfz != null">
+        #{sfz,jdbcType=VARCHAR},
+      </if>
+      <if test="byyx != null">
+        #{byyx,jdbcType=VARCHAR},
+      </if>
+      <if test="sxzy != null">
+        #{sxzy,jdbcType=VARCHAR},
+      </if>
+      <if test="xueli != null">
+        #{xueli,jdbcType=VARCHAR},
+      </if>
+      <if test="xuewei != null">
+        #{xuewei,jdbcType=VARCHAR},
+      </if>
+      <if test="yysp != null">
+        #{yysp,jdbcType=VARCHAR},
+      </if>
+      <if test="zcdj != null">
+        #{zcdj,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="dgsj != null">
+        #{dgsj,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cvstatus != null">
+        #{cvstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        #{column3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.TbCvsExample" resultType="java.lang.Long">
+    select count(*) from tb_cvs
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_cvs
+    <set>
+      <if test="record.uid != null">
+        `uid` = #{record.uid,jdbcType=BIGINT},
+      </if>
+      <if test="record.cvid != null">
+        cvid = #{record.cvid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null">
+        birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.minzu != null">
+        minzu = #{record.minzu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hyzk != null">
+        hyzk = #{record.hyzk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zzmm != null">
+        zzmm = #{record.zzmm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xjzd != null">
+        xjzd = #{record.xjzd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shengao != null">
+        shengao = #{record.shengao,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sfz != null">
+        sfz = #{record.sfz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.byyx != null">
+        byyx = #{record.byyx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sxzy != null">
+        sxzy = #{record.sxzy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xueli != null">
+        xueli = #{record.xueli,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xuewei != null">
+        xuewei = #{record.xuewei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yysp != null">
+        yysp = #{record.yysp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zcdj != null">
+        zcdj = #{record.zcdj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgsj != null">
+        dgsj = #{record.dgsj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cvstatus != null">
+        cvstatus = #{record.cvstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.column1 != null">
+        column1 = #{record.column1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.column2 != null">
+        column2 = #{record.column2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.column3 != null">
+        column3 = #{record.column3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_cvs
+    set `uid` = #{record.uid,jdbcType=BIGINT},
+      cvid = #{record.cvid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      minzu = #{record.minzu,jdbcType=VARCHAR},
+      hyzk = #{record.hyzk,jdbcType=VARCHAR},
+      zzmm = #{record.zzmm,jdbcType=VARCHAR},
+      xjzd = #{record.xjzd,jdbcType=VARCHAR},
+      shengao = #{record.shengao,jdbcType=VARCHAR},
+      sfz = #{record.sfz,jdbcType=VARCHAR},
+      byyx = #{record.byyx,jdbcType=VARCHAR},
+      sxzy = #{record.sxzy,jdbcType=VARCHAR},
+      xueli = #{record.xueli,jdbcType=VARCHAR},
+      xuewei = #{record.xuewei,jdbcType=VARCHAR},
+      yysp = #{record.yysp,jdbcType=VARCHAR},
+      zcdj = #{record.zcdj,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      dgsj = #{record.dgsj,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      cvstatus = #{record.cvstatus,jdbcType=VARCHAR},
+      column1 = #{record.column1,jdbcType=VARCHAR},
+      column2 = #{record.column2,jdbcType=VARCHAR},
+      column3 = #{record.column3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.TbCvs">
+    update tb_cvs
+    <set>
+      <if test="cvid != null">
+        cvid = #{cvid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="minzu != null">
+        minzu = #{minzu,jdbcType=VARCHAR},
+      </if>
+      <if test="hyzk != null">
+        hyzk = #{hyzk,jdbcType=VARCHAR},
+      </if>
+      <if test="zzmm != null">
+        zzmm = #{zzmm,jdbcType=VARCHAR},
+      </if>
+      <if test="xjzd != null">
+        xjzd = #{xjzd,jdbcType=VARCHAR},
+      </if>
+      <if test="shengao != null">
+        shengao = #{shengao,jdbcType=VARCHAR},
+      </if>
+      <if test="sfz != null">
+        sfz = #{sfz,jdbcType=VARCHAR},
+      </if>
+      <if test="byyx != null">
+        byyx = #{byyx,jdbcType=VARCHAR},
+      </if>
+      <if test="sxzy != null">
+        sxzy = #{sxzy,jdbcType=VARCHAR},
+      </if>
+      <if test="xueli != null">
+        xueli = #{xueli,jdbcType=VARCHAR},
+      </if>
+      <if test="xuewei != null">
+        xuewei = #{xuewei,jdbcType=VARCHAR},
+      </if>
+      <if test="yysp != null">
+        yysp = #{yysp,jdbcType=VARCHAR},
+      </if>
+      <if test="zcdj != null">
+        zcdj = #{zcdj,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="dgsj != null">
+        dgsj = #{dgsj,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cvstatus != null">
+        cvstatus = #{cvstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.TbCvs">
+    update tb_cvs
+    set cvid = #{cvid,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      minzu = #{minzu,jdbcType=VARCHAR},
+      hyzk = #{hyzk,jdbcType=VARCHAR},
+      zzmm = #{zzmm,jdbcType=VARCHAR},
+      xjzd = #{xjzd,jdbcType=VARCHAR},
+      shengao = #{shengao,jdbcType=VARCHAR},
+      sfz = #{sfz,jdbcType=VARCHAR},
+      byyx = #{byyx,jdbcType=VARCHAR},
+      sxzy = #{sxzy,jdbcType=VARCHAR},
+      xueli = #{xueli,jdbcType=VARCHAR},
+      xuewei = #{xuewei,jdbcType=VARCHAR},
+      yysp = #{yysp,jdbcType=VARCHAR},
+      zcdj = #{zcdj,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      dgsj = #{dgsj,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      cvstatus = #{cvstatus,jdbcType=VARCHAR},
+      column1 = #{column1,jdbcType=VARCHAR},
+      column2 = #{column2,jdbcType=VARCHAR},
+      column3 = #{column3,jdbcType=VARCHAR}
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </update>
+</mapper>

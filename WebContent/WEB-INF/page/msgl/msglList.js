@@ -19,10 +19,11 @@ var form;
 								nickname = $('#nickname'),
 							createTimeStart = $("#createTimeStart"),
 								createTimeEnd = $("#createTimeEnd");
+							alert("zwid:"+zwid.val());
 							//执行重载
 							table
 								.reload(
-									'cvList',
+									'msglList',
 									{
 										page : {
 											curr : 1
@@ -75,9 +76,9 @@ var form;
 				//加载页面数据
 				table
 					.render({
-						id : 'cvList',
-						elem : '#cvList',
-						url : ctx + '/cv/getCvList/'+$('#zwid').val() //数据接口
+						id : 'msglList',
+						elem : '#msglList',
+						url : ctx + '/msgl/getmsglList/'+$('#zwid').val() //数据接口
 						,cellMinWidth: 100 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 						,limit : 10//每页默认数
 						,
@@ -92,78 +93,50 @@ var form;
 								width: 80
 							},
 							{
+								title : '是否聘用',
+								toolbar : '#barEdit2',
+								width: 80
+							},
+							{
 								field : 'uid',
 								title : '序号'
 							},
 							{
-								field : 'cvid',
-								title : '简历编号'
-							},
-							{
-								field : 'nickname',
-								title : '姓名'
-							},{
-								field : 'zwid',
-								title : '职位编号'
+								field : 'zdeptname',
+								title : '用人单位'
 
 							},
 							{
 								field : 'zname',
 								title : '应聘职位'
-
 							},
 							{
-								field : 'gzdd',
-								title : '工作地点'
+								field : 'nickname',
+								title : '姓名'
 							},
 							{
-								field : 'age',
-								title : '年龄'
+								field : 'zstatus',
+								title : '状态'
 							},
 							{
-								field : 'xueli',
-								title : '学历'
+								field : 'msg',
+								title : '面试官'
 							},
 							{
-								field : 'byyx',
-								title : '毕业院校'
+								field : 'mspj',
+								title : '面试评价'
 							},
 							{
-								field : 'lxgznx',
-								title : '连续工作年限'
-							},
-							{
-								field : 'createtime',
-								title : '投递时间',
-								templet : '<div>{{ formatTime(d.createtime,"yyyy-MM-dd")}}</div>'
-							},
-							{
-								field : 'cvstatusname',
-								title : '简历状态',
-								sort: true,
-								width: 110
-							},
-							{
-								field : 'cvstatus',
-								title : '简历状态',
-								sort: true,
-								width: 110
-							},
-							{
-								field : 'clstatus',
-								title : '状态处理',
-							    toolbar: '#switchTpl',
-								width: 290
+								field : 'mssj',
+								title : '面试时间',
+								templet : '<div>{{ formatTime(d.mssj,"yyyy-MM-dd")}}</div>'
 							}] ],
 						page : true
 						,where: {timestamp: (new Date()).valueOf()}
 						//开启分页
 						,done:function(res,curr,count){
 							// 隐藏列
-							// $(".layui-table-box").find("[data-field='uid']").css("display","none");
-							$(".layui-table-box").find("[data-field='cvid']").css("display","none");
-                            $(".layui-table-box").find("[data-field='zwid']").css("display","none");
-							$(".layui-table-box").find("[data-field='cvstatus']").css("display","none");
+							$(".layui-table-box").find("[data-field='uid']").css("display","none");
 							// $(".layui-table-box").find("[data-field='cvstatus']").css("display","none");
 						}
 					});
@@ -178,59 +151,22 @@ var form;
 				});
 				//监听状态操作
 
-				form.on('radio(jlcz)', function (data) {
-					console.log(data)
-					// alert(this.id+"=="+this.name+"=="+data.value );
-					$.ajax({
-						url : ctx + "/cv/updCvs/"  +this.name+","
-							+ data.value,
-						type : "get",
-						success : function(d) {
-							if (d.code == 0) {
-								// obj.del();
-							} else {
-								layer.msg(data.msg, {
-									icon : 5
-								});
-							}
-						}
-					})
-				});
 				//监听排序
-				table.on('sort(cvList)', function(obj) {
-					table.reload('cvList', {
+				table.on('sort(msglList)', function(obj) {
+					table.reload('msglList', {
 						initSort: obj
 					});
 				});
-				table.reload('cvList', {});
+				table.reload('msglList', {});
 
 				//监听工具条
-				table.on('tool(cvList)', function(obj) {
+				table.on('tool(msglList)', function(obj) {
 					var data = obj.data;
-					if (obj.event === 'del') {
-						layer.confirm('真的删除行么', function(index) {
-							$.ajax({
-								url : ctx + '/user/delUserByUid/'
-									+ data.uid,
-								type : "get",
-								success : function(d) {
-									if (d.code == 0) {
-										obj.del();
-									} else {
-										layer.msg(data.msg, {
-											icon : 5
-										});
-									}
-								}
-							})
-							layer.close(index);
-						});
-					}
-					else if (obj.event === 'check') {
+					 if (obj.event === 'check') {
 						var index = layui.layer.open({
-							title : "简历详情",
+							title : "面试详情",
 							type : 2,
-							content : ctx + "/cv/checkCv/"+ data.uid,
+							content : ctx + "/msgl/checkMsgl/"+ data.uid,
 							success : function(layero, index) {
 
 							}
@@ -240,16 +176,6 @@ var form;
 							layui.layer.full(index);
 						})
 						layui.layer.full(index);
-					}
-					else if (obj.event === 'turn') {
-						layer.open({
-							type : 2,
-							title : "转发简历",
-							area : [ '800px', '500px' ],
-							// content : ctx + "/cv/turnCv/"
-							content : ctx + "/post/cv2postList/"
-								+ data.uid //这里content是一个普通的String
-						})
 					}
 
 				});

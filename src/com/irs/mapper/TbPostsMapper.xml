@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.TbPostsMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.TbPosts">
+    <id column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="zdept" jdbcType="VARCHAR" property="zdept" />
+    <result column="zname" jdbcType="VARCHAR" property="zname" />
+    <result column="gzdd" jdbcType="VARCHAR" property="gzdd" />
+    <result column="zprs" jdbcType="VARCHAR" property="zprs" />
+    <result column="yxfw" jdbcType="VARCHAR" property="yxfw" />
+    <result column="xlyq" jdbcType="VARCHAR" property="xlyq" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="zyyq" jdbcType="VARCHAR" property="zyyq" />
+    <result column="gznx" jdbcType="VARCHAR" property="gznx" />
+    <result column="gwxl" jdbcType="VARCHAR" property="gwxl" />
+    <result column="zstatus" jdbcType="VARCHAR" property="zstatus" />
+    <result column="column1" jdbcType="VARCHAR" property="column1" />
+    <result column="column2" jdbcType="VARCHAR" property="column2" />
+    <result column="column3" jdbcType="VARCHAR" property="column3" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.irs.pojo.TbPosts">
+    <result column="fldy" jdbcType="LONGVARCHAR" property="fldy" />
+    <result column="rzyq" jdbcType="LONGVARCHAR" property="rzyq" />
+    <result column="gwzz" jdbcType="LONGVARCHAR" property="gwzz" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    `uid`, zdept, zname, gzdd, zprs, yxfw, xlyq, create_time, zyyq, gznx, gwxl, zstatus, 
+    column1, column2, column3
+  </sql>
+  <sql id="Blob_Column_List">
+    fldy, rzyq, gwzz
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.irs.pojo.TbPostsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_posts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.irs.pojo.TbPostsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_posts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_posts
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_posts
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.TbPostsExample">
+    delete from tb_posts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.TbPosts" useGeneratedKeys="true">
+    insert into tb_posts (zdept, zname, gzdd, 
+      zprs, yxfw, xlyq, create_time, 
+      zyyq, gznx, gwxl, zstatus, 
+      column1, column2, column3, 
+      fldy, rzyq, gwzz
+      )
+    values (#{zdept,jdbcType=VARCHAR}, #{zname,jdbcType=VARCHAR}, #{gzdd,jdbcType=VARCHAR}, 
+      #{zprs,jdbcType=VARCHAR}, #{yxfw,jdbcType=VARCHAR}, #{xlyq,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{zyyq,jdbcType=VARCHAR}, #{gznx,jdbcType=VARCHAR}, #{gwxl,jdbcType=VARCHAR}, #{zstatus,jdbcType=VARCHAR}, 
+      #{column1,jdbcType=VARCHAR}, #{column2,jdbcType=VARCHAR}, #{column3,jdbcType=VARCHAR}, 
+      #{fldy,jdbcType=LONGVARCHAR}, #{rzyq,jdbcType=LONGVARCHAR}, #{gwzz,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.TbPosts" useGeneratedKeys="true">
+    insert into tb_posts
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="zdept != null">
+        zdept,
+      </if>
+      <if test="zname != null">
+        zname,
+      </if>
+      <if test="gzdd != null">
+        gzdd,
+      </if>
+      <if test="zprs != null">
+        zprs,
+      </if>
+      <if test="yxfw != null">
+        yxfw,
+      </if>
+      <if test="xlyq != null">
+        xlyq,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="zyyq != null">
+        zyyq,
+      </if>
+      <if test="gznx != null">
+        gznx,
+      </if>
+      <if test="gwxl != null">
+        gwxl,
+      </if>
+      <if test="zstatus != null">
+        zstatus,
+      </if>
+      <if test="column1 != null">
+        column1,
+      </if>
+      <if test="column2 != null">
+        column2,
+      </if>
+      <if test="column3 != null">
+        column3,
+      </if>
+      <if test="fldy != null">
+        fldy,
+      </if>
+      <if test="rzyq != null">
+        rzyq,
+      </if>
+      <if test="gwzz != null">
+        gwzz,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="zdept != null">
+        #{zdept,jdbcType=VARCHAR},
+      </if>
+      <if test="zname != null">
+        #{zname,jdbcType=VARCHAR},
+      </if>
+      <if test="gzdd != null">
+        #{gzdd,jdbcType=VARCHAR},
+      </if>
+      <if test="zprs != null">
+        #{zprs,jdbcType=VARCHAR},
+      </if>
+      <if test="yxfw != null">
+        #{yxfw,jdbcType=VARCHAR},
+      </if>
+      <if test="xlyq != null">
+        #{xlyq,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zyyq != null">
+        #{zyyq,jdbcType=VARCHAR},
+      </if>
+      <if test="gznx != null">
+        #{gznx,jdbcType=VARCHAR},
+      </if>
+      <if test="gwxl != null">
+        #{gwxl,jdbcType=VARCHAR},
+      </if>
+      <if test="zstatus != null">
+        #{zstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="fldy != null">
+        #{fldy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rzyq != null">
+        #{rzyq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="gwzz != null">
+        #{gwzz,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.TbPostsExample" resultType="java.lang.Long">
+    select count(*) from tb_posts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_posts
+    <set>
+      <if test="record.uid != null">
+        `uid` = #{record.uid,jdbcType=BIGINT},
+      </if>
+      <if test="record.zdept != null">
+        zdept = #{record.zdept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zname != null">
+        zname = #{record.zname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gzdd != null">
+        gzdd = #{record.gzdd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zprs != null">
+        zprs = #{record.zprs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yxfw != null">
+        yxfw = #{record.yxfw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xlyq != null">
+        xlyq = #{record.xlyq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.zyyq != null">
+        zyyq = #{record.zyyq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gznx != null">
+        gznx = #{record.gznx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gwxl != null">
+        gwxl = #{record.gwxl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zstatus != null">
+        zstatus = #{record.zstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.column1 != null">
+        column1 = #{record.column1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.column2 != null">
+        column2 = #{record.column2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.column3 != null">
+        column3 = #{record.column3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fldy != null">
+        fldy = #{record.fldy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.rzyq != null">
+        rzyq = #{record.rzyq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.gwzz != null">
+        gwzz = #{record.gwzz,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_posts
+    set `uid` = #{record.uid,jdbcType=BIGINT},
+      zdept = #{record.zdept,jdbcType=VARCHAR},
+      zname = #{record.zname,jdbcType=VARCHAR},
+      gzdd = #{record.gzdd,jdbcType=VARCHAR},
+      zprs = #{record.zprs,jdbcType=VARCHAR},
+      yxfw = #{record.yxfw,jdbcType=VARCHAR},
+      xlyq = #{record.xlyq,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      zyyq = #{record.zyyq,jdbcType=VARCHAR},
+      gznx = #{record.gznx,jdbcType=VARCHAR},
+      gwxl = #{record.gwxl,jdbcType=VARCHAR},
+      zstatus = #{record.zstatus,jdbcType=VARCHAR},
+      column1 = #{record.column1,jdbcType=VARCHAR},
+      column2 = #{record.column2,jdbcType=VARCHAR},
+      column3 = #{record.column3,jdbcType=VARCHAR},
+      fldy = #{record.fldy,jdbcType=LONGVARCHAR},
+      rzyq = #{record.rzyq,jdbcType=LONGVARCHAR},
+      gwzz = #{record.gwzz,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.TbPosts">
+    update tb_posts
+    <set>
+      <if test="zdept != null">
+        zdept = #{zdept,jdbcType=VARCHAR},
+      </if>
+      <if test="zname != null">
+        zname = #{zname,jdbcType=VARCHAR},
+      </if>
+      <if test="gzdd != null">
+        gzdd = #{gzdd,jdbcType=VARCHAR},
+      </if>
+      <if test="zprs != null">
+        zprs = #{zprs,jdbcType=VARCHAR},
+      </if>
+      <if test="yxfw != null">
+        yxfw = #{yxfw,jdbcType=VARCHAR},
+      </if>
+      <if test="xlyq != null">
+        xlyq = #{xlyq,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zyyq != null">
+        zyyq = #{zyyq,jdbcType=VARCHAR},
+      </if>
+      <if test="gznx != null">
+        gznx = #{gznx,jdbcType=VARCHAR},
+      </if>
+      <if test="gwxl != null">
+        gwxl = #{gwxl,jdbcType=VARCHAR},
+      </if>
+      <if test="zstatus != null">
+        zstatus = #{zstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="column1 != null">
+        column1 = #{column1,jdbcType=VARCHAR},
+      </if>
+      <if test="column2 != null">
+        column2 = #{column2,jdbcType=VARCHAR},
+      </if>
+      <if test="column3 != null">
+        column3 = #{column3,jdbcType=VARCHAR},
+      </if>
+      <if test="fldy != null">
+        fldy = #{fldy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rzyq != null">
+        rzyq = #{rzyq,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="gwzz != null">
+        gwzz = #{gwzz,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.TbPosts">
+    update tb_posts
+    set zdept = #{zdept,jdbcType=VARCHAR},
+      zname = #{zname,jdbcType=VARCHAR},
+      gzdd = #{gzdd,jdbcType=VARCHAR},
+      zprs = #{zprs,jdbcType=VARCHAR},
+      yxfw = #{yxfw,jdbcType=VARCHAR},
+      xlyq = #{xlyq,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      zyyq = #{zyyq,jdbcType=VARCHAR},
+      gznx = #{gznx,jdbcType=VARCHAR},
+      gwxl = #{gwxl,jdbcType=VARCHAR},
+      zstatus = #{zstatus,jdbcType=VARCHAR},
+      column1 = #{column1,jdbcType=VARCHAR},
+      column2 = #{column2,jdbcType=VARCHAR},
+      column3 = #{column3,jdbcType=VARCHAR},
+      fldy = #{fldy,jdbcType=LONGVARCHAR},
+      rzyq = #{rzyq,jdbcType=LONGVARCHAR},
+      gwzz = #{gwzz,jdbcType=LONGVARCHAR}
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </update>
+</mapper>

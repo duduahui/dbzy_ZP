@@ -5,6 +5,7 @@ import com.irs.pojo.cv.TbCvsGz;
 import com.irs.pojo.cv.TbCvsJy;
 import com.irs.pojo.cv.TbCvsPx;
 import com.irs.service.CvService;
+import com.irs.service.MsService;
 import com.irs.service.PostService;
 import com.irs.service.PsndocService;
 import com.irs.util.ResultUtil;
@@ -30,6 +31,8 @@ public class CvController {
 	private PostService postServiceImpl;
 	@Autowired
 	private PsndocService psndocServiceImpl;
+	@Autowired
+	private MsService msServiceImpl;
 
 	
 
@@ -84,14 +87,14 @@ public class CvController {
 	@RequestMapping("checkCv/{uid}")
 //    @ResponseBody
 	public String checkCv(@PathVariable("uid")String uid, Model model){
-		String[] post_cv = uid.split(",");
-		TbCvs cv=cvServiceImpl.selCvByUid(Long.parseLong(post_cv[0]));
+		TbPostsCvs tbPostsCvs = cvServiceImpl.selPostCvService(uid);
+		TbCvs cv=cvServiceImpl.selCvByCvid(tbPostsCvs.getCvcode());
         List<TbCvsPx> tbCvsPxList =cvServiceImpl.selCvsPxByUid(cv.getCvid());
 		List<TbCvsJy> tbCvsJyList =cvServiceImpl.selCvsJyByUid(cv.getCvid());
 		List<TbCvsGz> tbCvsGzList =cvServiceImpl.selCvsGzByUid(cv.getCvid());
 
 		model.addAttribute("cv", cv);
-		model.addAttribute("post", post_cv[1]);
+		model.addAttribute("postcvid", tbPostsCvs.getUid());
 		model.addAttribute("cvjy", tbCvsJyList);
 		model.addAttribute("cvgz", tbCvsGzList);
 		model.addAttribute("cvpx", tbCvsPxList);
@@ -131,10 +134,7 @@ public class CvController {
      * **/
     @RequestMapping("bpmCLR/{str}")
     public String bpmCLR(@PathVariable("str")String str, Model model){
-//        TbPsndoc tbPsndoc=psndocServiceImpl.selPsndocList (Long.parseLong(uid));
-		String[] post_cv = str.split(",");
-        model.addAttribute("cvid", post_cv[0]);
-		model.addAttribute("post", post_cv[1]);
+        model.addAttribute("postcvid", str);
         return "page/bpm/bpmCLR";
     }
 	/**
@@ -161,6 +161,8 @@ public class CvController {
 				TbPostsCvs tbPostsCvs = cvServiceImpl.selPostCvService(uid_value[0]);
 				tbPostsCvs.setCvstatus("5");
 				cvServiceImpl.updPostCvService(tbPostsCvs);
+				postStr += ",5";
+                msServiceImpl.insMsglPj(postStr);
                 return ResultUtil.ok();
             }catch (Exception e){
 
