@@ -3,7 +3,6 @@ package com.irs.service;
 import com.irs.pojo.CvSearch;
 import com.irs.pojo.TbCvs;
 import com.irs.pojo.TbPostsCvs;
-import com.irs.pojo.TbPostsCvsKey;
 import com.irs.pojo.cv.TbCvsGz;
 import com.irs.pojo.cv.TbCvsJy;
 import com.irs.pojo.cv.TbCvsPx;
@@ -54,7 +53,7 @@ public interface CvService {
 
 
 	//职位简历关系表
-	public TbPostsCvs selPostCvService(String postid, String cvid);
+	public TbPostsCvs selPostCvService(String uid);
 
 	//更新职位简历关系表
 	public void updPostCvService(TbPostsCvs tbPostsCvs);

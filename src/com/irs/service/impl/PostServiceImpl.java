@@ -97,6 +97,8 @@ public class PostServiceImpl implements PostService {
 			pl.setUid(p.getUid());
 			pl.setZdept(p.getZdept());
 			pl.setZname(p.getZname());
+			pl.setXlyq(p.getXlyq());
+			pl.setGwxl(p.getGwxl());
 			pl.setZdeptname(deptMapper.getDeptName(p.getZdept()));//用人单位名称
 			pl.setJlsl(tbPostsCvsMapper.countCvs(p.getUid()));//简历数量
 			pl.setZstatus(p.getZstatus());
@@ -137,11 +139,16 @@ public class PostServiceImpl implements PostService {
 		tbPostsMapper.updateByPrimaryKey(post);
 	}
 	@Override
-	public void updPostByUid(Long uid,String zstatus) {
-		TbPosts post = tbPostsMapper.selectByPrimaryKey(uid);
-		post.setZstatus(zstatus);
-		post.setCreateTime(new Date());
-		tbPostsMapper.updateByPrimaryKey(post);
+	public void updPostByUid(String uids,String zstatus) {
+		String[] Posts = uids.split(",");
+		if(Posts!=null&&Posts.length>0){
+			for (String uid : Posts) {
+				TbPosts post = tbPostsMapper.selectByPrimaryKey(Long.parseLong(uid));
+				post.setZstatus(zstatus);
+				post.setCreateTime(new Date());
+				tbPostsMapper.updateByPrimaryKey(post);
+			}
+		}
 	}
 
 

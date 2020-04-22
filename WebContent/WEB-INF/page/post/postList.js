@@ -98,6 +98,18 @@ var form;
 								title : '用人单位'
 							},
 							{
+								field : 'zname',
+								title : '职位名称'
+							},
+							{
+								field : 'xlyq',
+								title : '学历要求'
+							},
+							{
+								field : 'gwxl',
+								title : '岗位序列'
+							},
+							{
 								field : 'gzdd',
 								title : '工作地点'
 							},

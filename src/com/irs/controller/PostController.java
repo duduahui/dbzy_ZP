@@ -3,7 +3,6 @@ package com.irs.controller;
 import com.irs.annotation.SysLog;
 import com.irs.pojo.PostSearch;
 import com.irs.pojo.TbPosts;
-import com.irs.pojo.TbUsers;
 import com.irs.service.DeptService;
 import com.irs.service.PostService;
 import com.irs.util.ResultUtil;
@@ -159,7 +158,7 @@ public class PostController {
 	@SysLog(value="根据ID下架职位")
 	@RequestMapping("underPostByUid/{uid}")
 	@ResponseBody
-	public ResultUtil underPostByUid(@PathVariable("uid")Long uid){
+	public ResultUtil underPostByUid(@PathVariable("uid")String uid){
 		try {
 			postServiceImpl.updPostByUid(uid,"下架");
 			return ResultUtil.ok();
@@ -177,7 +176,7 @@ public class PostController {
 	@SysLog(value="根据ID发布职位")
 	@RequestMapping("subPostByUid/{uid}")
 	@ResponseBody
-	public ResultUtil subPostByUid(@PathVariable("uid")Long uid){
+	public ResultUtil subPostByUid(@PathVariable("uid")String uid){
 		try {
 			postServiceImpl.updPostByUid(uid,"发布");
 			return ResultUtil.ok();

@@ -63,6 +63,8 @@
 		</div>
 		<a class="layui-btn search_btn" lay-submit="" data-type="search"
 		   lay-filter="search">查询简历</a>
+		<a class="layui-btn search_btn" lay-submit="" data-type="search"
+		   lay-filter="search">安排面试</a>
 		<shiro:hasPermission name="user:user:save">
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-normal userAdd_btn">发布职位</a>
@@ -73,7 +75,7 @@
 				<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
 			</div>
 		</shiro:hasPermission>
-		<div class="layui-inline">（支持模糊查询）</div>
+<%--		<div class="layui-inline">（支持模糊查询）</div>--%>
 	</div>
 	</blockquote>
 </form>
@@ -87,13 +89,13 @@
 	</script>
 <script id="switchTpl" type="text/html">
 	<div class="layui-form-item">
-		<input type="radio" name="{{d.uid}}" id="{{d.zwid}}" value="1" lay-skin="switch"   lay-filter="jlcz"
+		<input type="radio" name="{{d.uid}}"   value="1" lay-skin="switch"   lay-filter="jlcz"
 			   title="待定" {{d.cvstatus == 1 ? 'checked':''}}>
-		<input type="radio" name="{{d.uid}}" id="{{d.zwid}}" value="2" lay-skin="switch"   lay-filter="jlcz"
+		<input type="radio" name="{{d.uid}}"   value="2" lay-skin="switch"   lay-filter="jlcz"
 			   title="适合" {{d.cvstatus == 2 ? 'checked':''}}>
-		<input type="radio" name="{{d.uid}}" id="{{d.zwid}}" value="3" lay-skin="switch"   lay-filter="jlcz"
+		<input type="radio" name="{{d.uid}}"    value="3" lay-skin="switch"   lay-filter="jlcz"
 			   title="不适合" {{d.cvstatus == 3 ? 'checked':''}}>
-		<input type="radio" name="{{d.uid}}" id="{{d.zwid}}" value="4" lay-skin="switch"  lay-filter="jlcz"
+		<input type="radio" name="{{d.uid}}"   value="4" lay-skin="switch"  lay-filter="jlcz"
 			   title="转人才库" {{d.cvstatus == 4 ? 'checked':''}}>
 	</div>
 </script>

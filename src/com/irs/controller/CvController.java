@@ -158,7 +158,7 @@ public class CvController {
 		if(result == 0){
             try{
                 String[] uid_value = postStr.split(",");
-				TbPostsCvs tbPostsCvs = cvServiceImpl.selPostCvService(uid_value[1],uid_value[0]);
+				TbPostsCvs tbPostsCvs = cvServiceImpl.selPostCvService(uid_value[0]);
 				tbPostsCvs.setCvstatus("5");
 				cvServiceImpl.updPostCvService(tbPostsCvs);
                 return ResultUtil.ok();
@@ -177,8 +177,8 @@ public class CvController {
 		String[] uid_value = uid.split(",");
         int result = 0;
 		try{
-			TbPostsCvs tbPostsCvs = cvServiceImpl.selPostCvService(uid_value[0],uid_value[1]);
-			tbPostsCvs.setCvstatus(uid_value[2]);
+			TbPostsCvs tbPostsCvs = cvServiceImpl.selPostCvService(uid_value[0]);
+			tbPostsCvs.setCvstatus(uid_value[1]);
 			cvServiceImpl.updPostCvService(tbPostsCvs);
 		}catch (Exception e){
             result = 1;

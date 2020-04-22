@@ -19,7 +19,6 @@ var form;
 								nickname = $('#nickname'),
 							createTimeStart = $("#createTimeStart"),
 								createTimeEnd = $("#createTimeEnd");
-							alert("zwid:"+zwid.val());
 							//执行重载
 							table
 								.reload(
@@ -139,6 +138,12 @@ var form;
 								templet : '<div>{{ formatTime(d.createtime,"yyyy-MM-dd hh:mm:ss")}}</div>'
 							},
 							{
+								field : 'cvstatusname',
+								title : '简历状态',
+								sort: true,
+								width: 110
+							},
+							{
 								field : 'cvstatus',
 								title : '简历状态',
 								sort: true,
@@ -158,7 +163,8 @@ var form;
 							$(".layui-table-box").find("[data-field='uid']").css("display","none");
 							$(".layui-table-box").find("[data-field='cvid']").css("display","none");
                             $(".layui-table-box").find("[data-field='zwid']").css("display","none");
-                            // $(".layui-table-box").find("[data-field='cvstatus']").css("display","none");
+							$(".layui-table-box").find("[data-field='cvstatus']").css("display","none");
+							// $(".layui-table-box").find("[data-field='cvstatus']").css("display","none");
 						}
 					});
 
@@ -176,7 +182,7 @@ var form;
 					console.log(data)
 					// alert(this.id+"=="+this.name+"=="+data.value );
 					$.ajax({
-						url : ctx + "/cv/updCvs/"+ this.id+","+this.name+","
+						url : ctx + "/cv/updCvs/"  +this.name+","
 							+ data.value,
 						type : "get",
 						success : function(d) {

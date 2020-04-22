@@ -71,6 +71,19 @@
 		</div>
 	</div>
 	<div class="layui-form-item">
+		<label class="layui-form-label">岗位序列</label>
+<%--		<div class="layui-input-block">--%>
+<%--			<input type="required" id="gwxl" name="gwxl" class="layui-input userName"--%>
+<%--				   lay-verify="text" placeholder="请输入岗位序列"  value="">--%>
+<%--		</div>--%>
+		<div class="layui-input-block">
+			<select name="gwxl" lay-filter="aihao">
+				<option value="操作岗" >操作岗</option>
+				<option value="非操作岗">非操作岗</option>
+			</select>
+		</div>
+	</div>
+	<div class="layui-form-item">
 		<label class="layui-form-label">月薪范围</label>
 		<div class="layui-input-block">
 			<input type="text" id="yxfw" name="yxfw"  class="layui-input userName"

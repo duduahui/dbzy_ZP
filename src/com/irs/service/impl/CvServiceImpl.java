@@ -79,19 +79,23 @@ public class CvServiceImpl implements CvService {
 		ResultUtil resultUtil = new ResultUtil();
 		TbPostsCvsExample tbPostsCvsExample = new TbPostsCvsExample();
 		Criteria criteria = tbPostsCvsExample.createCriteria();
-		String a = search.getPostid();
 		if(!"".equals(search.getPostid())&&(search.getPostid())!=null){
+			//职位简历关系
 			criteria.andPostcodeEqualTo(search.getPostid());
+		}
+		if(!"".equals(search.getCvstatus())&&(search.getCvstatus())!=null){
+			//人才库简历状态为4
+			criteria.andCvstatusEqualTo(search.getCvstatus());
 		}
 		tbPostsCvsExample.setOrderByClause("createtime DESC");
 		List<TbPostsCvs> tbPostsCvs = tbPostsCvsMapper.selectByExample(tbPostsCvsExample);
 		List<TbCvsList> cvsLists = new ArrayList<TbCvsList>();
 		for (TbPostsCvs pc:tbPostsCvs){
 			TbPosts tbPosts = tbPostsMapper.selectByPrimaryKey(Long.parseLong(pc.getPostcode()));
-			TbCvs cv = tbCvsMapper.selectByPrimaryKey(Long.parseLong(pc.getCvcode()));
+			TbCvs cv = tbCvsMapper.selectByCvid(pc.getCvcode());
 			TbCvsList cvsList = new TbCvsList();
 			cvsList.setZwid(tbPosts.getUid()+"");//职位id
-			cvsList.setUid(cv.getUid());//序号
+			cvsList.setUid(pc.getUid());//序号
 			cvsList.setCvid(cv.getCvid());//简历编号
 			cvsList.setNickname(cv.getNickname());//姓名
 			cvsList.setZname(tbPosts.getZname());//应聘职位
@@ -102,6 +106,7 @@ public class CvServiceImpl implements CvService {
 			cvsList.setLxgznx("3");//连续工作年限
 			cvsList.setCreatetime(cv.getCreatetime());//投递时间
 			cvsList.setCvstatus(pc.getCvstatus());//简历状态
+			cvsList.setCvstatusname(pc.getCvstatus());//简历中文
 			cvsLists.add(cvsList);
 		}
 		PageInfo<TbCvsList> pageInfo = new PageInfo<TbCvsList>(cvsLists);
@@ -116,10 +121,7 @@ public class CvServiceImpl implements CvService {
 		TbPosts tbPosts = tbPostsMapper.selectByPrimaryKey(Long.parseLong(search.getPostid()));
 		List<TbCvs>  Cvs = tbCvsMapper.selectByExample(new TbCvsExample());
 //		getTbCvs(search.getPostid());//散装查询
-		TbPostsCvsKey sKey = new TbPostsCvsKey();
-		sKey.setCvcode(search.getPostid());
-		sKey.setCvcode(search.getUserid());
-		TbPostsCvs tbPostsCvs = tbPostsCvsMapper.selectByPrimaryKey(sKey);
+		TbPostsCvs tbPostsCvs = tbPostsCvsMapper.selectByPrimaryKey(Long.parseLong(search.getPostid()));
 
 		List<TbCvsList> cvsLists = new ArrayList<TbCvsList>();
 		for (TbCvs cv:Cvs
@@ -206,12 +208,8 @@ public class CvServiceImpl implements CvService {
 
 
 	@Override
-	public TbPostsCvs selPostCvService(String postid,String cvid) {
-
-		TbPostsCvsKey sKey = new TbPostsCvsKey();
-		sKey.setPostcode(postid);
-		sKey.setCvcode(cvid);
-		return tbPostsCvsMapper.selectByPrimaryKey(sKey);
+	public TbPostsCvs selPostCvService(String uid) {
+		return tbPostsCvsMapper.selectByPrimaryKey(Long.parseLong(uid));
 	}
 
 	@Override

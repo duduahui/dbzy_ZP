@@ -1,6 +1,5 @@
 package com.irs.service;
 
-//import com.irs.pojo.PostSearch;
 import com.irs.pojo.PostSearch;
 import com.irs.pojo.TbPosts;
 import com.irs.util.ResultUtil;
@@ -31,5 +30,5 @@ public interface PostService {
 	public void updPostService(TbPosts post);
 
 	//更新职位信息-职位状态
-	public void updPostByUid(Long uid,String zstatus);
+	public void updPostByUid(String uids,String zstatus);
 }
