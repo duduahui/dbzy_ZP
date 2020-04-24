@@ -111,6 +111,14 @@ public class PostServiceImpl implements PostService {
 		resultUtil.setData(pageInfo.getList());
 		return resultUtil;
 	}
+	@Override
+	public List<TbPosts> selPostsByXCX(Integer page, Integer limit,PostSearch search) {
+		PageHelper.startPage(page, limit);
+		TbPostsExample example=new TbPostsExample();
+		//设置按创建时间降序排序
+		example.setOrderByClause("create_time DESC");
+		return tbPostsMapper.selectByExample(example);
+	}
 
 //	@Override
 //	public void delPostsService(String PostStr) {

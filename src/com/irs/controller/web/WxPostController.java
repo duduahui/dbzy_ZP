@@ -27,8 +27,7 @@ public  class WxPostController {
 	public Object getPostList(Integer page, Integer limit, PostSearch search){
 
 
-		ResultUtil resultUtil = postService.selPosts(1,10,search);
-		List<TbPosts> postList = (List<TbPosts>)resultUtil.getData();
+		List<TbPosts> postList = postService.selPostsByXCX(1,10,search);
 		List<Map<String, Object>> data = new ArrayList<>(postList.size());
 		for (TbPosts tbPosts : postList) {
 			Map<String, Object> resultAll = new HashMap<>();

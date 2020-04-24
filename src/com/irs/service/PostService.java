@@ -4,6 +4,8 @@ import com.irs.pojo.PostSearch;
 import com.irs.pojo.TbPosts;
 import com.irs.util.ResultUtil;
 
+import java.util.List;
+
 public interface PostService {
 	//职位邮箱唯一性检验
 //	public TbPosts selPostByEmail(String eMail, Long uid);
@@ -31,4 +33,6 @@ public interface PostService {
 
 	//更新职位信息-职位状态
 	public void updPostByUid(String uids,String zstatus);
+	//小程序查询职位
+	public List<TbPosts> selPostsByXCX(Integer page, Integer limit, PostSearch search);
 }
