@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irs.mapper.TbMsglPjMapper">
+  <resultMap id="BaseResultMap" type="com.irs.pojo.TbMsglPj">
+    <id column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="gzid" jdbcType="VARCHAR" property="gzid" />
+    <result column="pjname" jdbcType="VARCHAR" property="pjname" />
+    <result column="pjdesc" jdbcType="VARCHAR" property="pjdesc" />
+    <result column="pjstatus" jdbcType="VARCHAR" property="pjstatus" />
+    <result column="pjdate" jdbcType="DATE" property="pjdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    `uid`, gzid, pjname, pjdesc, pjstatus, pjdate
+  </sql>
+  <select id="selectByExample" parameterType="com.irs.pojo.TbMsglPjExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_msgl_pj
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_msgl_pj
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_msgl_pj
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.irs.pojo.TbMsglPjExample">
+    delete from tb_msgl_pj
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.TbMsglPj" useGeneratedKeys="true">
+    insert into tb_msgl_pj (gzid, pjname, pjdesc, 
+      pjstatus, pjdate)
+    values (#{gzid,jdbcType=VARCHAR}, #{pjname,jdbcType=VARCHAR}, #{pjdesc,jdbcType=VARCHAR}, 
+      #{pjstatus,jdbcType=VARCHAR}, #{pjdate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" keyColumn="uid" keyProperty="uid" parameterType="com.irs.pojo.TbMsglPj" useGeneratedKeys="true">
+    insert into tb_msgl_pj
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gzid != null">
+        gzid,
+      </if>
+      <if test="pjname != null">
+        pjname,
+      </if>
+      <if test="pjdesc != null">
+        pjdesc,
+      </if>
+      <if test="pjstatus != null">
+        pjstatus,
+      </if>
+      <if test="pjdate != null">
+        pjdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gzid != null">
+        #{gzid,jdbcType=VARCHAR},
+      </if>
+      <if test="pjname != null">
+        #{pjname,jdbcType=VARCHAR},
+      </if>
+      <if test="pjdesc != null">
+        #{pjdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pjstatus != null">
+        #{pjstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pjdate != null">
+        #{pjdate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.irs.pojo.TbMsglPjExample" resultType="java.lang.Long">
+    select count(*) from tb_msgl_pj
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_msgl_pj
+    <set>
+      <if test="record.uid != null">
+        `uid` = #{record.uid,jdbcType=BIGINT},
+      </if>
+      <if test="record.gzid != null">
+        gzid = #{record.gzid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjname != null">
+        pjname = #{record.pjname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjdesc != null">
+        pjdesc = #{record.pjdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjstatus != null">
+        pjstatus = #{record.pjstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pjdate != null">
+        pjdate = #{record.pjdate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_msgl_pj
+    set `uid` = #{record.uid,jdbcType=BIGINT},
+      gzid = #{record.gzid,jdbcType=VARCHAR},
+      pjname = #{record.pjname,jdbcType=VARCHAR},
+      pjdesc = #{record.pjdesc,jdbcType=VARCHAR},
+      pjstatus = #{record.pjstatus,jdbcType=VARCHAR},
+      pjdate = #{record.pjdate,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.irs.pojo.TbMsglPj">
+    update tb_msgl_pj
+    <set>
+      <if test="gzid != null">
+        gzid = #{gzid,jdbcType=VARCHAR},
+      </if>
+      <if test="pjname != null">
+        pjname = #{pjname,jdbcType=VARCHAR},
+      </if>
+      <if test="pjdesc != null">
+        pjdesc = #{pjdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pjstatus != null">
+        pjstatus = #{pjstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pjdate != null">
+        pjdate = #{pjdate,jdbcType=DATE},
+      </if>
+    </set>
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.irs.pojo.TbMsglPj">
+    update tb_msgl_pj
+    set gzid = #{gzid,jdbcType=VARCHAR},
+      pjname = #{pjname,jdbcType=VARCHAR},
+      pjdesc = #{pjdesc,jdbcType=VARCHAR},
+      pjstatus = #{pjstatus,jdbcType=VARCHAR},
+      pjdate = #{pjdate,jdbcType=DATE}
+    where `uid` = #{uid,jdbcType=BIGINT}
+  </update>
+</mapper>
